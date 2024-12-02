@@ -1,0 +1,147 @@
+/* Pretendard Variable 폰트 정의 */
+@font-face {
+  font-family: "Pretendard Variable";
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/PretendardVariable.woff2") format("woff2-variations");
+}
+
+/* html, body를 100% 높이로 설정 */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "Pretendard Variable", Arial, sans-serif; /* Pretendard Variable 폰트 적용 */
+}
+
+/* 본문 콘텐츠 */
+.main-content {
+  flex: 1;
+}
+
+/* 푸터 컨테이너 */
+.footer-container {
+  width: 100%;
+  padding: 40px 0;
+  font-family: "Pretendard Variable", Arial, sans-serif; /* Pretendard Variable 폰트 적용 */
+  color: #222222;
+}
+
+/* 푸터 상단 구분선 */
+.footer-divider {
+  width: 1280px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 0 auto 40px auto;
+}
+
+/* 푸터 내부 영역 */
+.footer-content {
+  width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* 고객센터 영역 */
+.service-area {
+  flex: 1;
+  padding-right: 40px;
+}
+
+.service-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.service-tel {
+  color: #222222;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+.service-time {
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
+}
+
+.service-noti {
+  font-size: 14px;
+  color: #777;
+  margin-top: 5px;
+}
+
+.btn-faq {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 15px;
+  background-color: #222222;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* 메뉴 영역 */
+.footer-menu {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-box {
+  width: 45%;
+}
+
+.menu-box strong {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.menu-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-box li {
+  margin-bottom: 8px;
+}
+
+.menu-box a {
+  color: #222222;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.menu-box a:hover {
+  color: #000;
+}
+
+/* 사업자 정보 */
+.business-info {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #777;
+  text-align: center;
+}
+
+/* 푸터 하단 */
+.footer-bottom {
+  margin-top: 30px;
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+}
+
+.footer-bottom .notice {
+  margin-bottom: 10px;
+}
+
+.footer-bottom .copyright {
+  font-size: 12px;
+  color: #999;
+}
