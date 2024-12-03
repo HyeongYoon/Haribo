@@ -1,4 +1,3 @@
-/* Pretendard Variable 폰트 정의 */
 @font-face {
   font-family: "Pretendard Variable";
   font-weight: 100 900;
@@ -6,36 +5,30 @@
   src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/PretendardVariable.woff2") format("woff2-variations");
 }
 
-/* html, body를 100% 높이로 설정 */
 html, body {
   height: 100%;
   margin: 0;
   display: flex;
   flex-direction: column;
-  font-family: "Pretendard Variable", Arial, sans-serif; /* Pretendard Variable 폰트 적용 */
+  font-family: "Pretendard Variable", Arial, sans-serif;
 }
 
-/* 본문 콘텐츠 */
 .main-content {
   flex: 1;
 }
 
-/* 푸터 컨테이너 */
 .footer-container {
   width: 100%;
   padding: 40px 0;
-  font-family: "Pretendard Variable", Arial, sans-serif; /* Pretendard Variable 폰트 적용 */
   color: #222222;
 }
 
-/* 푸터 상단 구분선 */
 .footer-divider {
   width: 1280px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   margin: 0 auto 40px auto;
 }
 
-/* 푸터 내부 영역 */
 .footer-content {
   width: 1280px;
   margin: 0 auto;
@@ -44,7 +37,6 @@ html, body {
   align-items: flex-start;
 }
 
-/* 고객센터 영역 */
 .service-area {
   flex: 1;
   padding-right: 40px;
@@ -73,18 +65,100 @@ html, body {
   margin-top: 5px;
 }
 
+/* 새로운 버튼 스타일 */
 .btn-faq {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 8px 15px;
-  background-color: #222222;
+  position: relative;
+  padding: 10px 22px;
+  border-radius: 6px;
+  border: none;
   color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 14px;
+  cursor: pointer;
+  background-color: #222222CC;
+  transition: all 0.2s ease;
 }
 
-/* 메뉴 영역 */
+.btn-faq:active {
+  transform: scale(0.96);
+}
+
+.btn-faq:before,
+.btn-faq:after {
+  position: absolute;
+  content: "";
+  width: 150%;
+  left: 50%;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: -1000;
+  background-repeat: no-repeat;
+}
+
+.btn-faq:hover:before {
+  top: -70%;
+  background-image: radial-gradient(circle, #222222CC 20%, transparent 20%),
+    radial-gradient(circle, transparent 20%, #222222CC 20%, transparent 30%),
+    radial-gradient(circle, #222222CC 20%, transparent 20%),
+    radial-gradient(circle, #222222CC 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #222222CC 15%, transparent 20%),
+    radial-gradient(circle, #222222CC 20%, transparent 20%),
+    radial-gradient(circle, #222222CC 20%, transparent 20%),
+    radial-gradient(circle, #222222CC 20%, transparent 20%),
+    radial-gradient(circle, #222222CC 20%, transparent 20%);
+  background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%,
+    10% 10%, 18% 18%;
+  background-position: 50% 120%;
+  animation: greentopBubbles 0.6s ease;
+}
+
+@keyframes greentopBubbles {
+  0% {
+    background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
+      40% 90%, 55% 90%, 70% 90%;
+  }
+
+  50% {
+    background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
+      50% 50%, 65% 20%, 90% 30%;
+  }
+
+  100% {
+    background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
+      50% 40%, 65% 10%, 90% 20%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+
+.btn-faq:hover::after {
+  bottom: -70%;
+  background-image: radial-gradient(circle, #222222CC 20%, transparent 20%),
+    radial-gradient(circle, #222222CC 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #222222CC 15%, transparent 20%),
+    radial-gradient(circle, #222222CC 20%, transparent 20%),
+    radial-gradient(circle, #222222CC 20%, transparent 20%),
+    radial-gradient(circle, #222222CC 20%, transparent 20%);
+  background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+  background-position: 50% 0%;
+  animation: greenbottomBubbles 0.6s ease;
+}
+
+@keyframes greenbottomBubbles {
+  0% {
+    background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
+      70% -10%, 70% 0%;
+  }
+
+  50% {
+    background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
+      105% 0%;
+  }
+
+  100% {
+    background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+      110% 10%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+
 .footer-menu {
   flex: 1;
   display: flex;
@@ -121,7 +195,6 @@ html, body {
   color: #000;
 }
 
-/* 사업자 정보 */
 .business-info {
   margin-top: 30px;
   font-size: 14px;
@@ -129,7 +202,6 @@ html, body {
   text-align: center;
 }
 
-/* 푸터 하단 */
 .footer-bottom {
   margin-top: 30px;
   font-size: 12px;

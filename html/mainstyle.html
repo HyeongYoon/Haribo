@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/mainstyle.css">
+  <title>Main Style</title>
+</head>
+<body>
+  <div class="style-container">
+    <div class="style-header">
+      STYLE
+      <a href="/style">
+        <button>&gt;</button>
+      </a>
+    </div>
+    <div class="style-grid">
+      <!-- 이미지 1 -->
+      <div class="style-item">
+        <div class="image-placeholder">이미지 1</div>
+        <div class="user-info">
+          <img src="../img/user1.png" alt="User 1">
+          <span class="user-name">DOYXXN</span>
+          <div class="comment-react">
+            <button class="like-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 이미지 2 -->
+      <div class="style-item">
+        <div class="image-placeholder">이미지 2</div>
+        <div class="user-info">
+          <img src="../img/user2.png" alt="User 2">
+          <span class="user-name">SEJIN</span>
+          <div class="comment-react">
+            <button class="like-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 이미지 3 -->
+      <div class="style-item">
+        <div class="image-placeholder">이미지 3</div>
+        <div class="user-info">
+          <img src="../img/user3.png" alt="User 3">
+          <span class="user-name">JAY</span>
+          <div class="comment-react">
+            <button class="like-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 이미지 4 -->
+      <div class="style-item">
+        <div class="image-placeholder">이미지 4</div>
+        <div class="user-info">
+          <img src="../img/user4.png" alt="User 4">
+          <span class="user-name">HANNA</span>
+          <div class="comment-react">
+            <button class="like-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 좋아요 버튼 클릭 이벤트
+    const likeButtons = document.querySelectorAll(".like-btn");
+
+    likeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        button.classList.toggle("liked");
+      });
+    });
+  </script>
+</body>
+</html>
