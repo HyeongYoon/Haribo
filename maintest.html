@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>섹션별 HTML 보기</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+      /* iframe 스타일 */
+    iframe {
+        display: block;
+        width: 100%;
+        border: none;
+        margin: 0 0 20px 0;
+        padding: 0;
+    }
+    </style>
+    <script>
+    function resizeIframe(iframe) {
+        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+    }
+    </script>
+</head>
+<body>
+    <!-- 각 iframe에 onload 이벤트로 높이 조정 -->
+    <iframe src="html/mainheader.html" onload="resizeIframe(this)"></iframe>
+    <iframe src="html/mainbanner.html" onload="resizeIframe(this)"></iframe>
+    <iframe src="html/mainshop.html" onload="resizeIframe(this)"></iframe>
+    <iframe src="html/mainstyle.html" onload="resizeIframe(this)"></iframe>
+    <iframe src="html/mainbanner2.html" onload="resizeIframe(this)"></iframe>
+    <iframe src="html/mainproduct.html" onload="resizeIframe(this)"></iframe>
+    <iframe src="html/footer.html" onload="resizeIframe(this)"></iframe>
+</body>
+</html>
