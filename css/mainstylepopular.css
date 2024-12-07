@@ -1,0 +1,247 @@
+@font-face {
+  font-family: "Pretendard Variable";
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/PretendardVariable.woff2") format("woff2-variations");
+}
+
+body {
+  font-family: "Pretendard Variable", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.container {
+  width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.section {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.section h2 {
+  margin: 0 0 20px 0;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.section h2 a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.divider {
+  width: 1px;
+  background-color: #ddd;
+  height: auto;
+  margin: 0 20px;
+}
+
+.style-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.style-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.style-item .image-link {
+  display: block;
+  width: 233px;
+  height: 263px;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.style-item .image-link img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.style-item .info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  max-width: 233px;
+}
+
+.style-item .profile {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.style-item .profile img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.style-item .profile .name-link {
+  text-decoration: none;
+  color: black;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* POPULAR 섹션 */
+.popular-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px;
+}
+
+.popular-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.popular-item .image-link {
+  display: block;
+  width: 230px;
+  height: 230px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.popular-item .image-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.popular-item .info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.popular-item .name {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.popular-item .description {
+  color: gray;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.popular-item .price {
+  color: black;
+  font-weight: bold;
+}
+
+.heart-container {
+  --heart-color: rgb(189, 91, 255);
+  position: relative;
+  width: 24px;
+  height: 24px;
+  transition: .3s;
+}
+
+.heart-container .checkbox {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.heart-container .svg-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heart-container .svg-outline,
+.heart-container .svg-filled {
+  fill: var(--heart-color);
+  position: absolute;
+}
+
+.heart-container .svg-filled {
+  animation: keyframes-svg-filled 1s;
+  display: none;
+}
+
+.heart-container .svg-celebrate {
+  position: absolute;
+  animation: keyframes-svg-celebrate .5s;
+  animation-fill-mode: forwards;
+  display: none;
+  stroke: var(--heart-color);
+  fill: var(--heart-color);
+  stroke-width: 2px;
+}
+
+.heart-container .checkbox:checked ~ .svg-container .svg-filled {
+  display: block;
+}
+
+.heart-container .checkbox:checked ~ .svg-container .svg-celebrate {
+  display: block;
+}
+
+@keyframes keyframes-svg-filled {
+  0% {
+    transform: scale(0);
+  }
+
+  25% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(1);
+    filter: brightness(1.5);
+  }
+}
+
+@keyframes keyframes-svg-celebrate {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+    display: none;
+  }
+}
