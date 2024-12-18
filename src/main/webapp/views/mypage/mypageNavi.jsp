@@ -18,22 +18,22 @@
       <!-- 구매내역 -->
       <p class="mypage-sbn-menu">
       <c:choose>
-            <c:when test="${param.page == 'purchaseHistory'}">
-              <a href="<%=request.getContextPath()%>/jelly?page=" style="color:black; font-weight: bold">구매내역</a>
-            </c:when>
-            <c:otherwise>
-              <a href="<%=request.getContextPath()%>/jelly?page=" style="font-weight: bold">구매내역</a>
-            </c:otherwise>
-      </c:choose>
+    	<c:when test="${param.page == 'purchaseHistory'}">
+        	<a href="<%=request.getContextPath()%>/jelly?page=purchaseHistory" style="color:black; font-weight: bold">구매내역</a>
+    	</c:when>
+    	<c:otherwise>
+        	<a href="<%=request.getContextPath()%>/jelly?page=purchaseHistory" style="font-weight: bold">구매내역</a>
+    	</c:otherwise>
+	</c:choose>
       </p>
       <!-- 판매내역 -->
       <p class="mypage-sbn-menu">
       <c:choose>
             <c:when test="${param.page == ''}">
-              <a href="<%=request.getContextPath()%>/jelly?page=" style="color:black; font-weight: bold">판매내역</a>
+              <a href="<%=request.getContextPath()%>/jelly?page=salesHistory" style="color:black; font-weight: bold">판매내역</a>
             </c:when>
             <c:otherwise>
-              <a href="<%=request.getContextPath()%>/jelly?page=">판매내역</a>
+              <a href="<%=request.getContextPath()%>/jelly?page=salesHistory">판매내역</a>
             </c:otherwise>
       </c:choose>
       </p>

@@ -1,3 +1,4 @@
+// 패키지명
 package com.jelly.www.controller;
 
 import jakarta.servlet.RequestDispatcher;
@@ -9,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.jelly.www.action.*;
 import com.jelly.www.dao.ProductDAO;
 import com.jelly.www.vo.ProductVO;
+import com.jelly.www.vo.PurchaseHistoryVO; // 구매내역 VO 추가
+import com.jelly.www.dao.PurchaseHistoryDAO; // 구매내역 DAO 추가
 
 import java.io.IOException;
 import java.util.List;
@@ -18,7 +21,7 @@ public class JellyController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 한글처리 요청 인코딩
+    	// 한글처리 요청 인코딩
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=UTF-8");
 
@@ -27,6 +30,7 @@ public class JellyController extends HttpServlet {
         String query = req.getParameter("query");
         String url = null;
         Action action = null;
+        System.out.println("요청된 page 값: " + page);
 
         // 요청 처리
         if (query != null && !query.trim().isEmpty()) {
@@ -77,7 +81,7 @@ public class JellyController extends HttpServlet {
         } else if (page.equals("style")) {
             action = new StyleAction(); // 스타일 페이지 처리
         } else if (page.equals("styleDetail")) {
-        	action = new StyleDetailAction(); // 스타일 페이지 처리
+        	action = new StyleDetailAction(); // 스타일 디테일 페이지 처리
         } else if (page.equals("styleList")) {
         	action = new StyleListAction(); // 스타일 list 처리
         } else if (page.equals("postNewStyle")) {
@@ -103,7 +107,14 @@ public class JellyController extends HttpServlet {
              url = "/views/mypage/userAccount.jsp"; // 판매 정산 계좌 이동
         } else if (page.equals("profileInfo")) {
              url = "/views/mypage/profileInfo.jsp"; // 프로필 관리 계좌 이동
-               
+        // 여기서 구매내역 페이지 추가
+        } else if (page.equals("purchaseHistory")) {
+            // 구매내역 조회는 로그인한 사용자만 볼 수 있다고 가정
+            if (isUserLoggedIn(req)) {
+                action = new PurchaseHistoryAction(); // 구매내역 페이지 처리
+            } else {
+                url = "/views/login/login.jsp"; // 로그인 페이지로 리다이렉트
+            }    
         } else {
             url = "/views/error/404.jsp"; // 에러 페이지 처리
         }
