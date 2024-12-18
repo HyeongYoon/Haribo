@@ -139,7 +139,6 @@ public class UserAccountDAO {
         } finally {
             close();
         }
-
         return userAccount;
     }
 
