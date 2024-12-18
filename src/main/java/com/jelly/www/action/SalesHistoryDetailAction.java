@@ -30,6 +30,7 @@ public class SalesHistoryDetailAction implements Action {
             }
         }
 
+        
         SalesHistoryDetailDAO dao = new SalesHistoryDetailDAO();
         SalesHistoryDetailVO detailVO = dao.getDetail(tradeId, sellerId);
 
