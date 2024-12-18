@@ -20,7 +20,7 @@
     background: #eee;
 }
 img.product-image {
-    width: 100px; /* 이미지 크기 조정 */
+    width: 100px;
     height: auto;
 }
 </style>
@@ -45,9 +45,17 @@ img.product-image {
                 <c:forEach var="vo" items="${purchaseList}">
                     <tr>
                         <td>
-                            <img class="product-image" src="${vo.imageUrl}" alt="상품이미지">
+                            <!-- 이미지 클릭 시 상세 페이지 이동 -->
+                            <a href="/haribo/jelly?page=purchaseHistoryDetail&trade_id=${vo.tradeId}">
+                                <img class="product-image" src="${vo.imageUrl}" alt="상품이미지">
+                            </a>
                         </td>
-                        <td>${vo.productName}</td>
+                        <td>
+                            <!-- 상품명 클릭 시 상세 페이지 이동 -->
+                            <a href="/haribo/jelly?page=purchaseHistoryDetail&trade_id=${vo.tradeId}">
+                                ${vo.productName}
+                            </a>
+                        </td>
                         <td>${vo.purchasePrice}원</td>
                     </tr>
                 </c:forEach>

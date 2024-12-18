@@ -8,19 +8,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.jelly.www.action.*;
-import com.jelly.www.dao.ProductDAO;
-import com.jelly.www.vo.ProductVO;
-import com.jelly.www.vo.PurchaseHistoryVO; // 구매내역 VO 추가
-import com.jelly.www.dao.PurchaseHistoryDAO; // 구매내역 DAO 추가
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/jelly")
 public class JellyController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
     	// 한글처리 요청 인코딩
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=UTF-8");
@@ -115,12 +111,17 @@ public class JellyController extends HttpServlet {
                 url = "/views/login/login.jsp"; // 로그인 페이지로 리다이렉트
             }
         } else if (page.equals("salesHistory")) {
-            // 판매내역 조회는 로그인한 사용자만 볼 수 있도록 처리
             if (isUserLoggedIn(req)) {
                 action = new SalesHistoryAction(); // 판매내역 페이지 처리
             } else {
-                url = "/views/login/login.jsp"; // 로그인 페이지로 리다이렉트
+                url = "/views/login/login.jsp";
             }     
+        } else if (page.equals("purchaseHistoryDetail")) {
+            if (isUserLoggedIn(req)) {
+                action = new PurchaseHistoryDetailAction(); // 구매내역 상세 페이지 처리
+            } else {
+                url = "/views/login/login.jsp";
+            }
         } else {
             url = "/views/error/404.jsp"; // 에러 페이지 처리
         }

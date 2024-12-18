@@ -34,7 +34,7 @@ public class PurchaseHistoryDAO {
     public List<PurchaseHistoryVO> getPurchaseHistory(int buyerId) {
         List<PurchaseHistoryVO> list = new ArrayList<>();
         sb.setLength(0);
-        sb.append("SELECT P.image_url, P.product_name, T.total_price ");
+        sb.append("SELECT T.trade_id, P.image_url, P.product_name, T.total_price ");
         sb.append("FROM TRADE T ");
         sb.append("JOIN PRODUCT_SELLER PS ON T.product_seller_id = PS.product_seller_id ");
         sb.append("JOIN PRODUCT P ON PS.product_id = P.product_id ");
@@ -48,15 +48,17 @@ public class PurchaseHistoryDAO {
             pstmt.setInt(1, buyerId);
             rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                String imageUrl = rs.getString("image_url");
-                String productName = rs.getString("product_name");
-                int purchasePrice = rs.getInt("total_price");
 
-                PurchaseHistoryVO vo = new PurchaseHistoryVO(imageUrl, productName, purchasePrice);
-                list.add(vo);
+       while (rs.next()) {
+    	   int tradeId = rs.getInt("trade_id");
+    	   String imageUrl = rs.getString("image_url");
+    	   String productName = rs.getString("product_name");
+    	   int purchasePrice = rs.getInt("total_price");
+    	   PurchaseHistoryVO vo = new PurchaseHistoryVO(tradeId, imageUrl, productName, purchasePrice);
+    	   list.add(vo);
 
-                System.out.println("이미지 URL: " + imageUrl + ", 상품명: " + productName + ", 가격: " + purchasePrice);
+           System.out.println("이미지 URL: " + imageUrl + ", 상품명: " + productName + ", 가격: " + purchasePrice);
+           
             }
 
             if (list.isEmpty()) {
