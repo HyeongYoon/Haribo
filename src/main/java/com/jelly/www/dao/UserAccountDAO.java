@@ -109,8 +109,8 @@ public class UserAccountDAO {
         sb.append("FROM USER_ACCOUNT ");
         sb.append("WHERE user_id = ?");
 
-        System.out.println("[DEBUG] 실행할 SQL: " + sb.toString());
-        System.out.println("[DEBUG] 요청 user_id: " + userId);
+        System.out.println("실행할 SQL: " + sb.toString());
+        System.out.println("요청 user_id: " + userId);
 
         try {
             pstmt = conn.prepareStatement(sb.toString());
@@ -128,13 +128,13 @@ public class UserAccountDAO {
                     rs.getString("created_at"),
                     rs.getString("updated_at")
                 );
-                System.out.println("[DEBUG] 조회된 계좌 정보: " + userAccount.toString());
+                System.out.println("조회된 계좌 정보: " + userAccount.toString());
             } else {
-                System.out.println("[DEBUG] 해당 user_id에 대한 계좌 정보 없음");
+                System.out.println("해당 user_id에 대한 계좌 정보 없음");
             }
 
         } catch (SQLException e) {
-            System.err.println("[ERROR] 계좌 정보 조회 중 SQL 에러 발생");
+            System.err.println("계좌 정보 조회 중 SQL 에러 발생");
             e.printStackTrace();
         } finally {
             close();
