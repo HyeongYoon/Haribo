@@ -17,10 +17,10 @@ public class SalesHistoryAction implements Action {
 
         // 세션에서 seller_id 가져오기
         Integer sellerId = (Integer) session.getAttribute("user_id");
-        System.out.println("seller_id: " + sellerId);
+        System.out.println("[DEBUG] seller_id: " + sellerId);
 
         if (sellerId == null) {
-            System.out.println("로그인되지 않은 사용자");
+            System.out.println("[ERROR] 로그인되지 않은 사용자");
             return "/views/login/login.jsp";
         }
 
@@ -30,9 +30,12 @@ public class SalesHistoryAction implements Action {
         List<SalesHistoryVO> salesList = dao.getSalesHistory(sellerId);
 
         if (salesList == null || salesList.isEmpty()) {
-            System.out.println("판매내역이 없ㅇ음");
+            System.out.println("[DEBUG] 판매내역이 없음");
         } else {
-            System.out.println("판매내역 조회 성공, 내역 수: " + salesList.size());
+            System.out.println("[DEBUG] 판매내역 조회 성공, 내역 수: " + salesList.size());
+            for (SalesHistoryVO vo : salesList) {
+                System.out.println("[DEBUG] 조회된 데이터: " + vo);
+            }
         }
 
         // 조회 결과를 request에 담음

@@ -122,6 +122,12 @@ public class JellyController extends HttpServlet {
             } else {
                 url = "/views/login/login.jsp";
             }
+        } else if (page.equals("salesHistoryDetail")) {
+            if (isUserLoggedIn(req)) {
+                action = new SalesHistoryDetailAction(); // 판매내역 상세 페이지 처리
+            } else {
+                url = "/views/login/login.jsp";
+            }
         } else {
             url = "/views/error/404.jsp"; // 에러 페이지 처리
         }

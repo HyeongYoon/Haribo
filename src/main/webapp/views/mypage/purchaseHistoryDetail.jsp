@@ -70,13 +70,13 @@
 
             <!-- 배송지 주소1 -->
             <div class="detail-row">
-                <span class="detail-label">배송지 주소1:</span>
+                <span class="detail-label">배송지 주소:</span>
                 <c:out value="${detailVO.addressLine1}" default="null"/>
             </div>
 
             <!-- 배송지 주소2 -->
             <div class="detail-row">
-                <span class="detail-label">배송지 주소2:</span>
+                <span class="detail-label">배송지 상세주소:</span>
                 <c:out value="${detailVO.addressLine2}" default="null"/>
             </div>
 
