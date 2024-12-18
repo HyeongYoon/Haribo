@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/views/home/subHeader.jsp" %>    
 <!DOCTYPE html>
@@ -34,10 +34,12 @@
             <span class="profile-user-nickname">${uVo.userName }</span> <br />
             <span class="profile-user-email">${uVo.email }</span>
           </div>
-          <div class="profile-btns">
-            <input type="button" value="프로필 관리" class="profile-info-btn" />
-            <input type="button" value=" 내스타일 " class="profile-info-btn" />
-          </div>
+		<div class="profile-btns">
+  			<!-- 프로필 관리 버튼 -->
+  				<input type="button"value="프로필 관리" class="profile-info-btn" onclick="location.href='http://localhost:8080/haribo/jelly?page=profileInfo'" />
+  			<!-- 내 스타일 버튼 -->
+  			    <input type="button" value="내스타일" class="profile-info-btn" onclick="location.href='http://localhost:8080/haribo/jelly?page=styleProfile'" />
+		</div>
         </div>
         <!-- 각자 부분 끝 -->
       </div>

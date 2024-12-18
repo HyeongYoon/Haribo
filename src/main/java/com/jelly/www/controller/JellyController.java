@@ -99,6 +99,11 @@ public class JellyController extends HttpServlet {
         } else if (page.equals("filter")) {
             resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "GET 요청은 허용되지 않습니다.");
             return;
+        } else if (page.equals("userAccount")) {
+             url = "/views/mypage/userAccount.jsp"; // 판매 정산 계좌 이동
+        } else if (page.equals("profileInfo")) {
+             url = "/views/mypage/profileInfo.jsp"; // 프로필 관리 계좌 이동
+               
         } else {
             url = "/views/error/404.jsp"; // 에러 페이지 처리
         }
