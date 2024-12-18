@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class UserVO {
 	private int userId;             // 사용자 고유 ID
     private String userName;        // 사용자 이름
