@@ -11,12 +11,12 @@ public class SalesHistoryDetailAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("[DEBUG] 실행된 Action: SalesHistoryDetailAction");
+        System.out.println("Action: SalesHistoryDetailAction");
         
         HttpSession session = request.getSession();
         Integer sellerId = (Integer) session.getAttribute("user_id");
         if (sellerId == null) {
-            System.out.println("[ERROR] 로그인되지 않은 사용자");
+            System.out.println("로그인되지 않은 사용자");
             return "/views/login/login.jsp";
         }
 
@@ -26,7 +26,7 @@ public class SalesHistoryDetailAction implements Action {
             try {
                 tradeId = Integer.parseInt(tradeIdParam);
             } catch (NumberFormatException e) {
-                System.out.println("[ERROR] trade_id가 숫자가 아님");
+                System.out.println("trade_id가 숫자가 아님");
             }
         }
 
@@ -35,7 +35,7 @@ public class SalesHistoryDetailAction implements Action {
         SalesHistoryDetailVO detailVO = dao.getDetail(tradeId, sellerId);
 
         request.setAttribute("detailVO", detailVO);
-        System.out.println("[DEBUG] 포워딩 경로: /views/mypage/salesHistoryDetail.jsp");
+        
         return "/views/mypage/salesHistoryDetail.jsp";
     }
 }
