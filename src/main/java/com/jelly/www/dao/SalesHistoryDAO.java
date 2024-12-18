@@ -21,12 +21,12 @@ public class SalesHistoryDAO {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(url, user, password);
-            System.out.println("[DEBUG] MySQL DB 연결 성공");
+            System.out.println("MySQL DB 연결 성공");
         } catch (ClassNotFoundException e) {
-            System.err.println("[ERROR] MySQL 드라이버 로드 실패");
+            System.err.println("MySQL 드라이버 로드 실패");
             e.printStackTrace();
         } catch (SQLException e) {
-            System.err.println("[ERROR] MySQL DB 연결 실패");
+            System.err.println("MySQL DB 연결 실패");
             e.printStackTrace();
         }
     }
@@ -40,8 +40,8 @@ public class SalesHistoryDAO {
         sb.append("JOIN PRODUCT P ON PS.product_id = P.product_id ");
         sb.append("WHERE PS.seller_id = ?");
 
-        System.out.println("[DEBUG] 실행할 SQL: " + sb.toString());
-        System.out.println("[DEBUG] seller_id 값: " + sellerId);
+        System.out.println("실행할 SQL: " + sb.toString());
+        System.out.println("seller_id: " + sellerId);
 
         try {
             pstmt = conn.prepareStatement(sb.toString());
@@ -56,14 +56,14 @@ public class SalesHistoryDAO {
                 SalesHistoryVO vo = new SalesHistoryVO(imageUrl, productName, salePrice);
                 list.add(vo);
 
-                System.out.println("[DEBUG] 조회된 데이터 - 이미지 URL: " + imageUrl + ", 상품명: " + productName + ", 가격: " + salePrice);
+                System.out.println("이미지 URL: " + imageUrl + ", 상품명: " + productName + ", 가격: " + salePrice);
             }
 
             if (list.isEmpty()) {
-                System.out.println("[DEBUG] 판매내역이 없습니다.");
+                System.out.println("판매내역이 없음");
             }
         } catch (SQLException e) {
-            System.err.println("[ERROR] 판매내역 조회 중 SQL 에러 발생");
+            System.err.println("SQL 에러");
             e.printStackTrace();
         } finally {
             close();

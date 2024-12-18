@@ -107,14 +107,20 @@ public class JellyController extends HttpServlet {
              url = "/views/mypage/userAccount.jsp"; // 판매 정산 계좌 이동
         } else if (page.equals("profileInfo")) {
              url = "/views/mypage/profileInfo.jsp"; // 프로필 관리 계좌 이동
-        // 여기서 구매내역 페이지 추가
         } else if (page.equals("purchaseHistory")) {
             // 구매내역 조회는 로그인한 사용자만 볼 수 있다고 가정
             if (isUserLoggedIn(req)) {
                 action = new PurchaseHistoryAction(); // 구매내역 페이지 처리
             } else {
                 url = "/views/login/login.jsp"; // 로그인 페이지로 리다이렉트
-            }    
+            }
+        } else if (page.equals("salesHistory")) {
+            // 판매내역 조회는 로그인한 사용자만 볼 수 있도록 처리
+            if (isUserLoggedIn(req)) {
+                action = new SalesHistoryAction(); // 판매내역 페이지 처리
+            } else {
+                url = "/views/login/login.jsp"; // 로그인 페이지로 리다이렉트
+            }     
         } else {
             url = "/views/error/404.jsp"; // 에러 페이지 처리
         }
