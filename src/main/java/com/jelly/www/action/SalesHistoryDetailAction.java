@@ -35,7 +35,7 @@ public class SalesHistoryDetailAction implements Action {
         SalesHistoryDetailVO detailVO = dao.getDetail(tradeId, sellerId);
 
         request.setAttribute("detailVO", detailVO);
-        
+
         return "/views/mypage/salesHistoryDetail.jsp";
     }
 }
