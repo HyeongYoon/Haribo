@@ -39,12 +39,7 @@ public class JellyController extends HttpServlet {
             url = "/views/join/joinForm.jsp"; // 회원가입 페이지 이동
         } else if (page.equals("logout")) {
             action = new LogoutAction(); // 로그아웃 처리
-        } else if (page.equals("wish")) {
-            if (isUserLoggedIn(req)) {
-                action = new WishAction(); // 관심 페이지 처리
-            } else {
-                url = "/views/login/login.jsp"; // 로그인 페이지로 리다이렉트
-            }
+
         } else if (page.equals("mypage")) {
             if (isUserLoggedIn(req)) {
                 action = new MypageAction(); // 마이 페이지 처리
@@ -53,37 +48,10 @@ public class JellyController extends HttpServlet {
             }
         } else if (page.equals("notice")) {
             action = new NoticeAction(); // 고객센터 페이지 처리
-        } else if (page.equals("bottoms")) {
-            action = new BottomsAction(); // 하의 페이지 처리
-        } else if (page.equals("brand")) {
-            action = new BrandAction(); // 브랜드 페이지 처리
-        } else if (page.equals("category")) {
-            action = new CategoryAction(); // 카테고리 페이지 처리
-        } else if (page.equals("hats")) {
-            action = new HatsAction(); // 모자 페이지 처리
-        } else if (page.equals("luxury")) {
+        
             action = new LuxuryAction(); // 럭셔리 페이지 처리
-        } else if (page.equals("outer")) {
-            action = new OuterAction(); // 아우터 페이지 처리
-        } else if (page.equals("tops")) {
-            action = new TopsAction(); // 상의 페이지 처리
-        } else if (page.equals("wallets")) {
-            action = new WalletsAction(); // 지갑 페이지 처리
-        } else if (page.equals("shoes")) {
-            action = new ShoesAction(); // 신발 페이지
-            req.setAttribute("currentPage", "shop"); // 현재 페이지 설정
-        } else if (page.equals("bags")) {
-            action = new BagsAction(); // 가방 페이지 처리
-        } else if (page.equals("style")) {
-            action = new StyleAction(); // 스타일 페이지 처리
-        } else if (page.equals("styleDetail")) {
-        	action = new StyleDetailAction(); // 스타일 디테일 페이지 처리
-        } else if (page.equals("styleList")) {
-        	action = new StyleListAction(); // 스타일 list 처리
-        } else if (page.equals("postNewStyle")) {
-        	action = new PostNewStyleAction(); // 스타일 post 처리
-        } else if (page.equals("event")) {
-            action = new EventAction(); // 이벤트 페이지 처리
+       
+       
         } else if (page.equals("popular")) {
             action = new ProductPopularAction(); // 인기상품 페이지 처리
         } else if (page.equals("productDetail")) {
@@ -94,8 +62,7 @@ public class JellyController extends HttpServlet {
             url = "/views/event/event2.jsp"; // Event2 페이지 처리
         } else if (page.equals("faq")) {
             url = "/views/notice/faq.jsp"; // 자주묻는질문(FAQ) 페이지 처리
-        } else if (page.equals("search")) {
-            action = new SearchAction(); // 검색 요청 처리
+        
         } else if (page.equals("filter")) {
             resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "GET 요청은 허용되지 않습니다.");
             return;

@@ -1,48 +1,93 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="/views/home/subHeader.jsp" %>    
+<%@ include file="/views/home/subHeader.jsp" %>
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>mypage</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage.css"
-    />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypageCommon.css"
-    />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profileInfo.css"
-    />
-  </head>
-  <body>
-    <!-- mypage-container 안에 mypageNavi.jsp 위치해야 함 -->
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+</head>
+<body>
     <div class="mypage-container">
-      <!-- mypageNavigation -->
-      <%@ include file="/views/mypage/mypageNavi.jsp"%>
-      <!-- mypage content 시작 -->
-      <div class="mypage-content">
-        <!-- (각자 부분) 시작 -->
-        <div class="mypage-box">
-          <div>
-            <img
-              src="${uVo.profileImage }"
-              alt="프로필 사진"
-              class="profile-image"
-            />
-          </div>
-          <div class="profile-info">
-            <span class="profile-user-nickname">${uVo.userName }</span> <br />
-            <span class="profile-user-email">${uVo.email }</span>
-          </div>
-		<div class="profile-btns">
-  			<!-- 프로필 관리 버튼 -->
-  				<input type="button"value="프로필 관리" class="profile-info-btn" onclick="location.href='http://localhost:8080/haribo/jelly?page=profileInfo'" />
-  			<!-- 내 스타일 버튼 -->
-  			    <input type="button" value="내스타일" class="profile-info-btn" onclick="location.href='http://localhost:8080/haribo/jelly?page=styleProfile'" />
-		</div>
+    
+        <%@ include file="/views/mypage/mypageNavi.jsp" %>
+        
+        <!-- mypage content 시작 -->
+        <div class="mypage-content">
+            
+            <!-- 프로필 정보 (mypage-box1) -->
+            <div class="mypage-box1">
+                <div>
+                    <img src="${uVo.profileImage}" alt="프로필 사진" class="profile-image" />
+                </div>
+                <div class="profile-info">
+                    <span class="profile-user-nickname">${uVo.userName}</span><br />
+                    <span class="profile-user-email">${uVo.email}</span>
+                </div>
+                <div class="profile-btns">
+                    <!-- 프로필 관리 버튼 -->
+                    <input type="button" value="프로필 관리" class="profile-info-btn" id ="btn1" onclick="location.href='/haribo/jelly?page=profileInfo'" />
+                    <!-- 내 스타일 버튼 -->
+                    <input type="button" value="내스타일" class="profile-info-btn" id="btn2" onclick="location.href='/haribo/jelly?page=styleProfile'" />
+                </div>
+            </div>
+
+            <!-- 최근 구매내역 (mypage-box2) -->
+            <div class="mypage-box2">
+                <h3>최근 구매내역</h3>
+                <c:choose>
+                    <c:when test="${empty recentPurchases}">
+                        <p>구매내역이 없습니다.</p>
+                    </c:when>
+                    <c:otherwise>
+                        <ul class="purchase-list">
+                            <c:forEach var="vo" items="${recentPurchases}">
+                                <li>
+                                    <img class="product-image" src="${vo.imageUrl}" alt="상품이미지">
+                                    <div class="product-info">
+                                        <p class="product-name">
+                                            <a href="/haribo/jelly?page=purchaseHistoryDetail&trade_id=${vo.tradeId}">
+                                                ${vo.productName}
+                                            </a>
+                                        </p>
+                                        <p class="product-price">${vo.purchasePrice}원</p>
+                                    </div>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+
+            <!-- 최근 판매내역 (mypage-box3) -->
+            <div class="mypage-box3">
+                <h3>최근 판매내역</h3>
+                <c:choose>
+                    <c:when test="${empty recentSales}">
+                        <p>판매내역이 없습니다.</p>
+                    </c:when>
+                    <c:otherwise>
+                        <ul class="purchase-list">
+                            <c:forEach var="vo" items="${recentSales}">
+                                <li>
+                                    <img class="product-image" src="${vo.imageUrl}" alt="상품이미지">
+                                    <div class="product-info">
+                                        <p class="product-name">
+                                            <a href="/haribo/jelly?page=salesHistoryDetail&trade_id=${vo.tradeId}">
+                                                ${vo.productName}
+                                            </a>
+                                        </p>
+                                        <p class="product-price">${vo.salePrice}원</p>
+                                    </div>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+
         </div>
-        <!-- 각자 부분 끝 -->
-      </div>
     </div>
-  </body>
+    <%@ include file="/views/home/footer.jsp" %>
+</body>
 </html>

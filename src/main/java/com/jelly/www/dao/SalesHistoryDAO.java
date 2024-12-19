@@ -12,74 +12,122 @@ public class SalesHistoryDAO {
     private String user = "scott";
     private String password = "tiger";
 
-    private Connection conn;
-    private PreparedStatement pstmt;
-    private ResultSet rs;
-    private StringBuffer sb = new StringBuffer();
-
     public SalesHistoryDAO() {
         try {
             Class.forName(driver);
-            conn = DriverManager.getConnection(url, user, password);
-            System.out.println("[DEBUG] MySQL DB 연결 성공");
+            System.out.println("MySQL 드라이버 로드 성공");
         } catch (ClassNotFoundException e) {
-            System.err.println("[ERROR] MySQL 드라이버 로드 실패");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.err.println("[ERROR] MySQL DB 연결 실패");
+            System.err.println("MySQL 드라이버 로드 실패");
             e.printStackTrace();
         }
     }
 
-    public List<SalesHistoryVO> getSalesHistory(int sellerId) {
+    // 판매내역 조회 (페이지네이션)
+    public List<SalesHistoryVO> getSalesHistory(int sellerId, int page) {
         List<SalesHistoryVO> list = new ArrayList<>();
-        sb.setLength(0);
-        sb.append("SELECT T.trade_id, P.image_url, P.product_name, T.total_price ");
-        sb.append("FROM TRADE T ");
-        sb.append("JOIN PRODUCT_SELLER PS ON T.product_seller_id = PS.product_seller_id ");
-        sb.append("JOIN PRODUCT P ON PS.product_id = P.product_id ");
-        sb.append("WHERE PS.seller_id = ?");
+        int pageSize = 5; // 한 페이지에 출력할 데이터 수
+        int offset = (page - 1) * pageSize; // 시작 위치 계산
 
-        System.out.println("[DEBUG] 실행할 SQL: " + sb.toString());
-        System.out.println("[DEBUG] seller_id: " + sellerId);
+        String sql = "SELECT T.trade_id, P.image_url, P.product_name, T.total_price " +
+                     "FROM TRADE T " +
+                     "JOIN PRODUCT_SELLER PS ON T.product_seller_id = PS.product_seller_id " +
+                     "JOIN PRODUCT P ON PS.product_id = P.product_id " +
+                     "WHERE PS.seller_id = ? " +
+                     "LIMIT ?, ?";
 
-        try {
-            pstmt = conn.prepareStatement(sb.toString());
+        System.out.println("실행할 SQL: " + sql);
+        System.out.println("seller_id: " + sellerId + ", page: " + page);
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, sellerId);
-            rs = pstmt.executeQuery();
+            pstmt.setInt(2, offset);
+            pstmt.setInt(3, pageSize);
 
-            while (rs.next()) {
-                int tradeId = rs.getInt("trade_id");
-                String imageUrl = rs.getString("image_url");
-                String productName = rs.getString("product_name");
-                int salePrice = rs.getInt("total_price");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int tradeId = rs.getInt("trade_id");
+                    String imageUrl = rs.getString("image_url");
+                    String productName = rs.getString("product_name");
+                    int salePrice = rs.getInt("total_price");
 
-                SalesHistoryVO vo = new SalesHistoryVO(tradeId, imageUrl, productName, salePrice);
-                list.add(vo);
+                    SalesHistoryVO vo = new SalesHistoryVO(tradeId, imageUrl, productName, salePrice);
+                    list.add(vo);
 
-                System.out.println("[DEBUG] 조회된 데이터 - 거래 ID: " + tradeId + ", 이미지 URL: " + imageUrl + ", 상품명: " + productName + ", 가격: " + salePrice);
-            }
-
-            if (list.isEmpty()) {
-                System.out.println("[DEBUG] 판매내역이 없음");
+                    System.out.println("거래 ID: " + tradeId + ", 이미지 URL: " + imageUrl + ", 상품명: " + productName + ", 가격: " + salePrice);
+                }
             }
         } catch (SQLException e) {
-            System.err.println("[ERROR] SQL 에러 발생");
             e.printStackTrace();
-        } finally {
-            close();
         }
 
         return list;
     }
 
-    private void close() {
-        try {
-            if (rs != null) rs.close();
-            if (pstmt != null) pstmt.close();
-            if (conn != null) conn.close();
+    // 총 판매내역 수 조회
+    public int getSalesHistoryCount(int sellerId) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS total " +
+                     "FROM TRADE T " +
+                     "JOIN PRODUCT_SELLER PS ON T.product_seller_id = PS.product_seller_id " +
+                     "WHERE PS.seller_id = ?";
+
+        System.out.println("SQL: " + sql);
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, sellerId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("total");
+                    System.out.println("총 판매내역 수: " + count);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return count;
+    }
+    
+    // 최근 3개 판매 내역 조회
+    public List<SalesHistoryVO> getRecentSalesHistory(int sellerId) {
+        List<SalesHistoryVO> list = new ArrayList<>();
+        
+        String sql = "SELECT T.trade_id, P.image_url, P.product_name, T.total_price " +
+                     "FROM TRADE T " +
+                     "JOIN PRODUCT_SELLER PS ON T.product_seller_id = PS.product_seller_id " +
+                     "JOIN PRODUCT P ON PS.product_id = P.product_id " +
+                     "WHERE PS.seller_id = ? " +
+                     "ORDER BY T.created_at DESC " +
+                     "LIMIT 3";
+
+        System.out.println("SQL: " + sql);
+        System.out.println("seller_id: " + sellerId);
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, sellerId);  // seller_id 값 설정
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int tradeId = rs.getInt("trade_id");
+                    String imageUrl = rs.getString("image_url");
+                    String productName = rs.getString("product_name");
+                    int salePrice = rs.getInt("total_price");
+
+                    SalesHistoryVO vo = new SalesHistoryVO(tradeId, imageUrl, productName, salePrice);
+                    list.add(vo);
+
+                    System.out.println("거래 ID: " + tradeId + ", 이미지 URL: " + imageUrl + ", 상품명: " + productName + ", 가격: " + salePrice);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

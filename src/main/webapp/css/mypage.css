@@ -1,66 +1,197 @@
-@charset "UTF-8";
+/* 전체 페이지 컨테이너 */
+.mypage-container {
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1280px;
+  width: 90%;
+  height: 1300px;
+}
 
-/* 프로필 박스 꾸미기 */
-.mypage-box {
-  border: lightgray 1px solid;
+/* mypage 내용 영역 */
+.mypage-content {
+  max-width: 1000px;
+  width: 90%;
+  margin: 24px 0 0 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+}
+
+/* mypage box 스타일 */
+.mypage-box1,
+.mypage-box2,
+.mypage-box3 {
+  padding: 20px;
+  background-color: #fff;
   border-radius: 10px;
-  height: 120px;
-  margin-bottom: 30px;
-  padding: 20px 40px;
+  margin-bottom: 20px; 
+}
+
+/* mypage-box1 (프로필 정보) */
+.mypage-box1 {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+  height: 100px;
+  border: 1px solid #ddd;
+  justify-content: flex-start;
+}
+
+/* 프로필 이미지 */
+.profile-img-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .profile-image {
-  width: 50px !important; 
-  height: 50px !important;
-  border-radius: 50% !important;
-  object-fit: cover !important;
-  border: 2px solid #ddd !important;
-  display: block;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
 }
 
-/* 프로필 정보 텍스트 */
+/* 프로필 정보 */
 .profile-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: 20px;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 16px;
+  margin-left: 10px;
 }
 
 .profile-user-nickname {
-  font-size: 20px;
   font-weight: bold;
-  color: #333; 
-  margin-bottom: 5px;
+  font-size: 18px;
 }
 
 .profile-user-email {
+  color: gray;
   font-size: 14px;
-  color: #777;
 }
 
-/* 버튼 */
+/* 프로필 버튼 스타일 */
 .profile-btns {
   display: flex;
   gap: 10px;
+  margin-top: 10px;
+  justify-content: flex-end;
+  margin-right: 20px; 
 }
 
 .profile-info-btn {
-  border: 1px solid lightgray;
+  padding: 8px 20px;
+  background-color: #000;
+  color: #fff;
+  border: none;
   border-radius: 5px;
-  padding: 10px 15px;
   cursor: pointer;
-  background-color: #f8f8f8;
-  font-size: 14px;
-  color: #555; 
-  transition: all 0.2s ease-in-out;
 }
 
 .profile-info-btn:hover {
-  background-color: #f0f0f0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); 
+  background-color: #444;
+}
+
+/* 최근 구매내역 및 판매내역 테이블 */
+.purchase-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: none; 
+}
+
+.purchase-table th, .purchase-table td {
+  padding: 12px;
+  text-align: center;
+  border: none;
+}
+
+.purchase-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+#btn1 {
+  margin-left: 500px;
+  margin-top: -2px;
+}
+
+#btn2 {
+  margin-right: 20px;
+  margin-top: -2px;
+}
+
+/* 상품 이미지 */
+.product-image {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* 상품명 스타일 */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.product-price {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* 구매내역 및 판매내역 리스트 */
+.purchase-list {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.purchase-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.purchase-list li .product-info {
+  margin-left: 20px;
+}
+
+/* 제목 */
+h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* 최근 구매내역과 판매내역 박스 (mypage-box2, mypage-box3) */
+.mypage-box2,
+.mypage-box3 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: none;
+}
+
+.mypage-box2 .purchase-list,
+.mypage-box3 .purchase-list {
+  padding-left: 0;
+  margin: 0;
+}
+
+/* 최근 구매내역과 판매내역 리스트 */
+.purchase-list li {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd; 
 }

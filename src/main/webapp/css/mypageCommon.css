@@ -13,7 +13,7 @@
   width: 90%;
   margin: 24px 0 0 50px;
   display: flex;
-  flex-direction: column; /* 세로(열 형태)로 정렬 */
+  flex-direction: column; 
 }
 
 /* mypage subtitle과 그 옆에 버튼  */
