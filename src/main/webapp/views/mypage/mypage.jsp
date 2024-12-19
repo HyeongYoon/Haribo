@@ -5,11 +5,12 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/mypage.css" />
     <title>마이페이지</title>
 </head>
 <body>
     <div class="mypage-container">
-    
+    	
         <%@ include file="/views/mypage/mypageNavi.jsp" %>
         
         <!-- mypage content 시작 -->
