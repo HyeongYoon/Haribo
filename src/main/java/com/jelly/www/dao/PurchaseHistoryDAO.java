@@ -50,7 +50,7 @@ public class PurchaseHistoryDAO {
         return list;
     }
 
-    // 구매내역 조회 (페이지네이션)
+    // 구매내역 조회 (페이지네이션, 최신순 정렬)
     public List<PurchaseHistoryVO> getPurchaseHistory(int buyerId, int page) {
         List<PurchaseHistoryVO> list = new ArrayList<>();
         int pageSize = 5; // 한 페이지에 출력할 데이터 수
@@ -61,7 +61,11 @@ public class PurchaseHistoryDAO {
                      "JOIN PRODUCT_SELLER PS ON T.product_seller_id = PS.product_seller_id " +
                      "JOIN PRODUCT P ON PS.product_id = P.product_id " +
                      "WHERE T.buyer_id = ? " +
+                     "ORDER BY T.trade_date DESC " + 
                      "LIMIT ?, ?";
+
+        System.out.println("실행할 SQL: " + sql);
+        System.out.println("buyer_id: " + buyerId + ", page: " + page);
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -75,13 +79,16 @@ public class PurchaseHistoryDAO {
                     String imageUrl = rs.getString("image_url");
                     String productName = rs.getString("product_name");
                     int purchasePrice = rs.getInt("total_price");
+
                     PurchaseHistoryVO vo = new PurchaseHistoryVO(tradeId, imageUrl, productName, purchasePrice);
                     list.add(vo);
+
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return list;
     }
 

@@ -25,14 +25,15 @@ public class SalesHistoryDAO {
     // 판매내역 조회 (페이지네이션)
     public List<SalesHistoryVO> getSalesHistory(int sellerId, int page) {
         List<SalesHistoryVO> list = new ArrayList<>();
-        int pageSize = 5; // 한 페이지에 출력할 데이터 수
-        int offset = (page - 1) * pageSize; // 시작 위치 계산
+        int pageSize = 5; 
+        int offset = (page - 1) * pageSize; 
 
-        String sql = "SELECT T.trade_id, P.image_url, P.product_name, T.total_price " +
+        String sql = "SELECT T.trade_id, P.image_url, P.product_name, PS.price AS sale_price " +
                      "FROM TRADE T " +
                      "JOIN PRODUCT_SELLER PS ON T.product_seller_id = PS.product_seller_id " +
                      "JOIN PRODUCT P ON PS.product_id = P.product_id " +
                      "WHERE PS.seller_id = ? " +
+                     "ORDER BY T.trade_date DESC " + 
                      "LIMIT ?, ?";
 
         System.out.println("실행할 SQL: " + sql);
@@ -49,12 +50,11 @@ public class SalesHistoryDAO {
                     int tradeId = rs.getInt("trade_id");
                     String imageUrl = rs.getString("image_url");
                     String productName = rs.getString("product_name");
-                    int salePrice = rs.getInt("total_price");
+                    int salePrice = rs.getInt("sale_price");
 
                     SalesHistoryVO vo = new SalesHistoryVO(tradeId, imageUrl, productName, salePrice);
                     list.add(vo);
 
-                    System.out.println("거래 ID: " + tradeId + ", 이미지 URL: " + imageUrl + ", 상품명: " + productName + ", 가격: " + salePrice);
                 }
             }
         } catch (SQLException e) {
@@ -90,12 +90,12 @@ public class SalesHistoryDAO {
 
         return count;
     }
-    
+
     // 최근 3개 판매 내역 조회
     public List<SalesHistoryVO> getRecentSalesHistory(int sellerId) {
         List<SalesHistoryVO> list = new ArrayList<>();
-        
-        String sql = "SELECT T.trade_id, P.image_url, P.product_name, T.total_price " +
+
+        String sql = "SELECT T.trade_id, P.image_url, P.product_name, PS.price AS sale_price " +
                      "FROM TRADE T " +
                      "JOIN PRODUCT_SELLER PS ON T.product_seller_id = PS.product_seller_id " +
                      "JOIN PRODUCT P ON PS.product_id = P.product_id " +
@@ -108,20 +108,19 @@ public class SalesHistoryDAO {
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setInt(1, sellerId);  // seller_id 값 설정
-            
+            pstmt.setInt(1, sellerId); // seller_id 값 설정
+
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     int tradeId = rs.getInt("trade_id");
                     String imageUrl = rs.getString("image_url");
                     String productName = rs.getString("product_name");
-                    int salePrice = rs.getInt("total_price");
+                    int salePrice = rs.getInt("sale_price");
 
                     SalesHistoryVO vo = new SalesHistoryVO(tradeId, imageUrl, productName, salePrice);
                     list.add(vo);
 
-                    System.out.println("거래 ID: " + tradeId + ", 이미지 URL: " + imageUrl + ", 상품명: " + productName + ", 가격: " + salePrice);
+                    System.out.println("거래 ID: " + tradeId + ", 이미지 URL: " + imageUrl + ", 상품명: " + productName + ", 판매가격: " + salePrice);
                 }
             }
         } catch (SQLException e) {
