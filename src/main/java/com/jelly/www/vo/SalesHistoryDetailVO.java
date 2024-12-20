@@ -8,13 +8,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SalesHistoryDetailVO {
-    private String imageUrl;         // 상품 이미지
-    private String productName;      // 상품명
-    private int productPrice;        // 상품 가격
-    private String buyerName;        // 구매자 이름
-    private String buyerEmail;       // 구매자 이메일
-    private String bankName;         // 정산 계좌 은행 이름
-    private String accountNumber;    // 정산 계좌 번호
-    private String accountHolder;    // 정산 계좌 주명
-    private String tradeStatusName;  // 거래 상태
+    private int tradeId;          // 주문번호 (거래 ID)
+    private String productImage;  // 상품 이미지 URL
+    private String productName;   // 상품명
+    private int salePrice;        // 판매 금액
+    private String accountName;   // 계좌 이름
+    private String accountNumber; // 계좌 번호
+    private String accountHolder; // 계좌주
+    private String address;       // 배송 주소
+    private String phoneNumber;   // 구매자 휴대폰 번호
+    private String userName;      // 구매자 이름
+    private String saleDate;      // 판매 일자
+    private String settlementDate; // 정산 완료일
 }

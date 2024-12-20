@@ -12,30 +12,49 @@ public class SalesHistoryDetailAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("Action: SalesHistoryDetailAction");
-        
+
+        // 로그인 여부 확인
         HttpSession session = request.getSession();
-        Integer sellerId = (Integer) session.getAttribute("user_id");
-        if (sellerId == null) {
-            System.out.println("로그인되지 않은 사용자");
+        Integer userId = (Integer) session.getAttribute("user_id");
+        if (userId == null) {
+            System.out.println("로그인되지 않음");
             return "/views/login/login.jsp";
         }
 
+        // trade_id 파라미터 처리
         String tradeIdParam = request.getParameter("trade_id");
         int tradeId = 0;
+
         if (tradeIdParam != null && !tradeIdParam.isEmpty()) {
             try {
                 tradeId = Integer.parseInt(tradeIdParam);
             } catch (NumberFormatException e) {
                 System.out.println("trade_id가 숫자가 아님");
+                return "/views/error/400.jsp";
             }
         }
 
-        
-        SalesHistoryDetailDAO dao = new SalesHistoryDetailDAO();
-        SalesHistoryDetailVO detailVO = dao.getDetail(tradeId, sellerId);
+        if (tradeId == 0) {
+            System.out.println("trade_id가 잘못됨");
+            return "/views/error/400.jsp";
+        }
 
+        // DAO 호출 및 데이터 조회
+        SalesHistoryDetailDAO dao = new SalesHistoryDetailDAO();
+        SalesHistoryDetailVO detailVO = dao.getDetail(tradeId);
+
+        // 조회 결과 확인
+        if (detailVO != null) {
+            System.out.println("조회된 데이터: " + detailVO);
+        } else {
+            System.out.println("trade_id에 해당하는 데이터 없음");
+            return "/views/error/404.jsp"; 
+        }
+
+        // request에 데이터 저장
         request.setAttribute("detailVO", detailVO);
 
+        // 판매내역 상세 페이지로 이동
         return "/views/mypage/salesHistoryDetail.jsp";
     }
 }

@@ -13,6 +13,7 @@ public class PurchaseHistoryDetailDAO {
     private Connection conn;
     private PreparedStatement pstmt;
     private ResultSet rs;
+    private StringBuffer sb = new StringBuffer();
 
     public PurchaseHistoryDetailDAO() {
         try {
@@ -28,69 +29,71 @@ public class PurchaseHistoryDetailDAO {
         }
     }
 
-    // 거래 상태 값을 문자열로 변환하는 메서드
-    private String getTradeStatusName(int tradeStatus) {
-        switch (tradeStatus) {
-            case 1: return "판매중";
-            case 2: return "결제완료"; // 디폴트값
-            case 3: return "배송중";
-            case 4: return "거래완료";
-            case 5: return "취소";
-            default: return "알 수 없음";
-        }
-    }
+    public PurchaseHistoryDetailVO getDetail(int tradeId) {
+        PurchaseHistoryDetailVO vo = null;
+        sb.setLength(0);
+        sb.append("SELECT T.trade_id, PS.product_id, P.image_url, P.product_name, P.description AS product_description, ");
+        sb.append("S.size AS product_size, T.total_price, ");
+        sb.append("PA.payment_method, A.address_line1, A.address_line2, A.postal_code, ");
+        sb.append("T.trade_status, U.user_name, U.phone_number ");
+        sb.append("FROM TRADE T ");
+        sb.append("JOIN PRODUCT_SELLER PS ON T.product_seller_id = PS.product_seller_id ");
+        sb.append("JOIN PRODUCT P ON PS.product_id = P.product_id ");
+        sb.append("JOIN SIZE S ON PS.size_id = S.size_id ");
+        sb.append("LEFT JOIN PAYMENT PA ON T.trade_id = PA.trade_id ");
+        sb.append("LEFT JOIN ADDRESS A ON T.address_id = A.address_id ");
+        sb.append("JOIN USER U ON T.buyer_id = U.user_id ");
+        sb.append("WHERE T.trade_id = ?");
 
-    public PurchaseHistoryDetailVO getPurchaseHistoryDetail(int tradeId) {
-        String sql = "SELECT "
-                     + "T.trade_id, P.product_name, P.image_url AS product_image_url, "
-                     + "P.initial_price AS product_price, U.user_name AS buyer_name, "
-                     + "U.phone_number AS buyer_phone_number, PM.payment_method, "
-                     + "T.total_price, T.trade_status, A.address_line1, A.address_line2, "
-                     + "A.postal_code, T.trade_date, PM.payment_status "
-                     + "FROM TRADE T "
-                     + "JOIN PRODUCT_SELLER PS ON T.product_seller_id = PS.product_seller_id "
-                     + "JOIN PRODUCT P ON PS.product_id = P.product_id "
-                     + "JOIN USER U ON T.buyer_id = U.user_id "
-                     + "JOIN PAYMENT PM ON T.trade_id = PM.trade_id "
-                     + "JOIN ADDRESS A ON T.address_id = A.address_id "
-                     + "WHERE T.trade_id = ?";
+        System.out.println("SQL: " + sb.toString());
+        System.out.println("trade_id: " + tradeId);
 
-        try {            
-        	pstmt = conn.prepareStatement(sql);
+        try {
+            pstmt = conn.prepareStatement(sb.toString());
             pstmt.setInt(1, tradeId);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                PurchaseHistoryDetailVO detailVO = new PurchaseHistoryDetailVO();
-                detailVO.setTradeId(rs.getInt("trade_id"));
-                detailVO.setProductName(rs.getString("product_name"));
-                detailVO.setProductImageUrl(rs.getString("product_image_url"));
-                detailVO.setProductPrice(rs.getInt("product_price"));
-                detailVO.setBuyerName(rs.getString("buyer_name"));
-                detailVO.setBuyerPhoneNumber(rs.getString("buyer_phone_number"));
-                detailVO.setPaymentMethod(rs.getString("payment_method"));
-                detailVO.setTotalPrice(rs.getInt("total_price"));
+                vo = new PurchaseHistoryDetailVO();
+                vo.setTradeId(rs.getInt("trade_id"));
+                vo.setImageUrl(rs.getString("image_url"));
+                vo.setProductName(rs.getString("product_name"));
+                vo.setProductDescription(rs.getString("product_description"));
+                vo.setProductSize(rs.getString("product_size"));
+                vo.setProductPrice(rs.getInt("total_price"));
+                vo.setPaymentMethod(rs.getString("payment_method"));
+                vo.setAddressLine1(rs.getString("address_line1"));
+                vo.setAddressLine2(rs.getString("address_line2"));
+                vo.setPostalCode(rs.getString("postal_code"));
+                vo.setTradeStatusName(convertTradeStatus(rs.getInt("trade_status")));
+                vo.setUserName(rs.getString("user_name"));
+                vo.setPhoneNumber(rs.getString("phone_number"));
+                vo.setProductId(rs.getInt("product_id"));
 
-                // 거래 상태 변환
-                int tradeStatus = rs.getInt("trade_status");
-                detailVO.setTradeStatusName(getTradeStatusName(tradeStatus));
-
-                detailVO.setAddressLine1(rs.getString("address_line1"));
-                detailVO.setAddressLine2(rs.getString("address_line2"));
-                detailVO.setPostalCode(rs.getString("postal_code"));
-                detailVO.setTradeDate(rs.getString("trade_date"));
-                detailVO.setPaymentStatus(rs.getString("payment_status"));
-
-                return detailVO;
+                System.out.println("조회된 값: " + vo.toString());
+            } else {
+                System.out.println("해당 trade_id에 데이터값 없음");
             }
 
         } catch (SQLException e) {
+            System.err.println("SQL 에러");
             e.printStackTrace();
         } finally {
-            close(); // DB 자원 해제
+            close();
         }
+        return vo;
+    }
 
-        return null; // 거래 내역이 없을 경우 null 반환
+    // 거래 상태 → 문자열 변환
+    private String convertTradeStatus(int status) {
+        switch (status) {
+            case 1: return "판매 중";
+            case 2: return "결제 완료";
+            case 3: return "배송 중";
+            case 4: return "거래 완료";
+            case 5: return "취소";
+            default: return "결제 완료";
+        }
     }
 
     private void close() {
