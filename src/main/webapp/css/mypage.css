@@ -18,7 +18,7 @@
   gap: 20px; 
 }
 
-/* mypage box 스타일 */
+/* mypage box */
 .mypage-box1,
 .mypage-box2,
 .mypage-box3 {
@@ -70,7 +70,7 @@
   font-size: 14px;
 }
 
-/* 프로필 버튼 스타일 */
+/* 프로필 버튼  */
 .profile-btns {
   display: flex;
   gap: 10px;
@@ -129,7 +129,7 @@
   border-radius: 5px;
 }
 
-/* 상품명 스타일 */
+/* 상품명 */
 .product-info {
   display: flex;
   flex-direction: column;
@@ -138,10 +138,8 @@
 
 .product-name {
   font-size: 14px;
-  font-weight: bold;
 }
 
-/* 상품 가격을 오른쪽으로 50px 이동 */
 .product-price {
   font-size: 14px;
   color: #666;

@@ -13,7 +13,7 @@
     	
         <%@ include file="/views/mypage/mypageNavi.jsp" %>
         
-        <!-- mypage content 시작 -->
+        <!-- mypage content -->
         <div class="mypage-content">
             
             <!-- 프로필 정보 (mypage-box1) -->
@@ -44,7 +44,9 @@
                         <ul class="purchase-list">
                             <c:forEach var="vo" items="${recentPurchases}">
                                 <li>
-                                    <img class="product-image" src="${vo.imageUrl}" alt="상품이미지">
+                                    <a href="/haribo/jelly?page=purchaseHistoryDetail&trade_id=${vo.tradeId}">
+                                        <img class="product-image" src="${vo.imageUrl}" alt="상품이미지">
+                                    </a>
                                     <div class="product-info">
                                         <p class="product-name">
                                             <a href="/haribo/jelly?page=purchaseHistoryDetail&trade_id=${vo.tradeId}">
@@ -71,7 +73,9 @@
                         <ul class="purchase-list">
                             <c:forEach var="vo" items="${recentSales}">
                                 <li>
-                                    <img class="product-image" src="${vo.imageUrl}" alt="상품이미지">
+                                    <a href="/haribo/jelly?page=salesHistoryDetail&trade_id=${vo.tradeId}">
+                                        <img class="product-image" src="${vo.imageUrl}" alt="상품이미지">
+                                    </a>
                                     <div class="product-info">
                                         <p class="product-name">
                                             <a href="/haribo/jelly?page=salesHistoryDetail&trade_id=${vo.tradeId}">

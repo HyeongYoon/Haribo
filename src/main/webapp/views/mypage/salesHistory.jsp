@@ -193,7 +193,9 @@
                     <ul class="purchase-list">
                         <c:forEach var="vo" items="${salesList}">
                             <li>
-                                <img class="product-image" src="${vo.imageUrl}" alt="상품이미지">
+                                <a href="/haribo/jelly?page=salesHistoryDetail&trade_id=${vo.tradeId}">
+                                        <img class="product-image" src="${vo.imageUrl}" alt="상품이미지">
+                                    </a>
                                 <div class="product-info">
                                     <p class="product-name">
                                         <a href="/haribo/jelly?page=salesHistoryDetail&trade_id=${vo.tradeId}">
