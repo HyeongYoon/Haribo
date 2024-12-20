@@ -1,6 +1,7 @@
 package com.jelly.www.dao;
 
 import java.sql.*;
+
 import com.jelly.www.vo.SalesHistoryDetailVO;
 
 public class SalesHistoryDetailDAO {
@@ -28,45 +29,42 @@ public class SalesHistoryDetailDAO {
         }
     }
 
-    public SalesHistoryDetailVO getDetail(int tradeId) {
+    public SalesHistoryDetailVO getDetail(int tradeId, int sellerId) {
         SalesHistoryDetailVO vo = null;
         sb.setLength(0);
-        sb.append("SELECT T.trade_id, P.image_url AS product_image, P.product_name, ");
-        sb.append("T.total_price AS sale_price, ");
-        sb.append("A.bank_name AS account_name, A.account_number, A.account_holder, ");
-        sb.append("U.user_name, U.phone_number, ");
-        sb.append("AD.address_line1, AD.address_line2, AD.postal_code, ");
-        sb.append("T.sale_date, T.settlement_date ");
+
+        sb.append("SELECT T.trade_id, P.product_id, P.product_name, P.image_url, PS.price AS sale_price, ");
+        sb.append("UA.bank_name, UA.account_number, UA.account_holder, ");
+        sb.append("T.trade_date ");
         sb.append("FROM TRADE T ");
-        sb.append("JOIN PRODUCT P ON T.product_id = P.product_id ");
-        sb.append("JOIN ACCOUNT A ON T.account_id = A.account_id ");
-        sb.append("JOIN USER U ON T.buyer_id = U.user_id ");
-        sb.append("LEFT JOIN ADDRESS AD ON T.address_id = AD.address_id ");
-        sb.append("WHERE T.trade_id = ?");
+        sb.append("JOIN PRODUCT_SELLER PS ON T.product_seller_id = PS.product_seller_id ");
+        sb.append("JOIN PRODUCT P ON PS.product_id = P.product_id ");
+        sb.append("LEFT JOIN USER_ACCOUNT UA ON UA.user_id = ? AND UA.is_default = TRUE ");
+        sb.append("WHERE T.trade_id = ? AND PS.seller_id = ?");
 
         try {
             pstmt = conn.prepareStatement(sb.toString());
-            pstmt.setInt(1, tradeId);
+            pstmt.setInt(1, sellerId); // 로그인된 사용자 ID
+            pstmt.setInt(2, tradeId); // 조회할 거래 ID
+            pstmt.setInt(3, sellerId); // 판매자인지 확인
+
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 vo = new SalesHistoryDetailVO();
                 vo.setTradeId(rs.getInt("trade_id"));
-                vo.setProductImage(rs.getString("product_image"));
+                vo.setProductId(rs.getInt("product_id")); // productId 추가
                 vo.setProductName(rs.getString("product_name"));
+                vo.setImageUrl(rs.getString("image_url"));
                 vo.setSalePrice(rs.getInt("sale_price"));
-                vo.setAccountName(rs.getString("account_name"));
-                vo.setAccountNumber(rs.getString("account_number"));
-                vo.setAccountHolder(rs.getString("account_holder"));
-                vo.setAddress(String.format("%s %s (%s)", rs.getString("address_line1"), rs.getString("address_line2"), rs.getString("postal_code")));
-                vo.setPhoneNumber(rs.getString("phone_number"));
-                vo.setUserName(rs.getString("user_name"));
-                vo.setSaleDate(rs.getString("sale_date"));
-                vo.setSettlementDate(rs.getString("settlement_date"));
+                vo.setBankName(rs.getString("bank_name")); // NULL 가능
+                vo.setAccountNumber(rs.getString("account_number")); // NULL 가능
+                vo.setAccountHolder(rs.getString("account_holder")); // NULL 가능
+                vo.setTradeDate(rs.getTimestamp("trade_date"));
 
-                System.out.println("조회된 데이터: " + vo);
+                System.out.println("조회된 값: " + vo);
             } else {
-                System.out.println("해당 trade_id에 데이터 없음");
+                System.out.println("해당 거래 정보가 없습니다.");
             }
         } catch (SQLException e) {
             System.err.println("SQL 에러");
