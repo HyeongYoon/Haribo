@@ -165,11 +165,10 @@ $(()=>{
 	</div>
 	<!-- 결제 푸터 -->
 	<div class="payment-footer">
-		<button class="payment-submit-btn">
-		<fmt:formatNumber value="${price - 10000 }원 판매하기" type="number"/>
-		</button> 
-			
-	</div>
+    <button class="payment-submit-btn">
+        <fmt:formatNumber value="${price - 10000}" type="number"/> 원 판매하기
+    </button>
+</div>
 </body>
 <jsp:include page="/views/home/footer.jsp" />
 </html>
