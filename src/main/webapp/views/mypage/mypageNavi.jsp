@@ -52,6 +52,17 @@
           </c:otherwise>
         </c:choose>
       </p>
+      
+      <p class="mypage-sbn-menu">
+        <c:choose>
+          <c:when test="${param.page == 'rank'}">
+            <a href="<%=request.getContextPath()%>/jelly?page=rank" class="active">rank</a>
+          </c:when>
+          <c:otherwise>
+            <a href="<%=request.getContextPath()%>/jelly?page=rank">rank</a>
+          </c:otherwise>
+        </c:choose>
+      </p>
 
       <p class="mypage-sbn-subtitle">내 정보</p>
 
