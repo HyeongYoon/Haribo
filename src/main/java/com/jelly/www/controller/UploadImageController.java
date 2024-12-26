@@ -138,8 +138,11 @@ public class UploadImageController extends HttpServlet {
         	String productIds = request.getParameter("productIds");
         	String[] productIdArray = productIds.split(","); // 콤마를 기준으로 문자열 나누기
         	
+        	
         	for (String id : productIdArray) {
-        		postTagDao.insertOne(postId, Integer.parseInt(id));
+        		if(!id.equals("")) {
+        			postTagDao.insertOne(postId, Integer.parseInt(id));        			
+        		}
         	}
         	
         	
