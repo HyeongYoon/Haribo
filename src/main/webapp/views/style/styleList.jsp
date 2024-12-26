@@ -10,6 +10,21 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styleList.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style>
+.header-input {
+	padding-right: 0px;
+}
+.header-section-main {
+	padding-top: 30px !important;
+}
+.header-section-bottom {
+	padding-top: 30px !important;
+}
+.header-form {
+	width: 227.6px;
+    height: 42px;
+}
+</style>
 </head>
 <script>
 	var _MainPath = "<%= request.getContextPath() %>";
@@ -74,8 +89,15 @@
 	    _Style.getStyleList(_Style.styleCode, 1);
 	}
 	
+	function setActiveLeft(element) {
+        const links = document.querySelectorAll('.filter-left .filter-link');
+        links.forEach(link => link.classList.remove('active'));
+        element.classList.add('active');
+    }
+	
 	$(document).ready(function() {
 		_Style.getStyleList(0);
+		setActiveLeft(document.getElementById("filter-all"));
 		
 		let isLoading = false; 
 
@@ -95,11 +117,11 @@
     <div class="filter-navbar">
         <!-- Filter links on the left -->
         <div class="filter-left" id="filter-container">
-		    <a href="javascript:void(0);" onclick="_Style.getStyleList(0);" id="filter-all" class="filter-link">All</a>
-		    <a href="javascript:void(0);" onclick="_Style.getStyleList(1);" id="filter-casual" class="filter-link">Casual</a>
-		    <a href="javascript:void(0);" onclick="_Style.getStyleList(2);" id="filter-street" class="filter-link">Street</a>
-		    <a href="javascript:void(0);" onclick="_Style.getStyleList(3);" id="filter-modern" class="filter-link">Modern</a>
-		    <a href="javascript:void(0);" onclick="_Style.getStyleList(4);" id="filter-vintage" class="filter-link">Vintage</a>
+		    <a href="javascript:void(0);" onclick="_Style.getStyleList(0); setActiveLeft(this);" id="filter-all" class="filter-link">All</a>
+		    <a href="javascript:void(0);" onclick="_Style.getStyleList(1); setActiveLeft(this);" id="filter-casual" class="filter-link">Casual</a>
+		    <a href="javascript:void(0);" onclick="_Style.getStyleList(2); setActiveLeft(this);" id="filter-street" class="filter-link">Street</a>
+		    <a href="javascript:void(0);" onclick="_Style.getStyleList(3); setActiveLeft(this);" id="filter-modern" class="filter-link">Modern</a>
+		    <a href="javascript:void(0);" onclick="_Style.getStyleList(4); setActiveLeft(this);" id="filter-vintage" class="filter-link">Vintage</a>
 		</div>
         
         <!-- Filter dropdown on the right -->
