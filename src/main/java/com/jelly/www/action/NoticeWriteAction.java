@@ -15,7 +15,7 @@ public class NoticeWriteAction implements Action {
 
 
         // 관리자 권한
-        if (userId == null || !"admin@gmail.com".equals(userEmail)) {
+        if (userId == null || !"haribojellyam@gmail.com".equals(userEmail)) {
             request.setAttribute("errorMessage", "권한이 없습니다.");
             return "/views/error/403.jsp"; 
         }

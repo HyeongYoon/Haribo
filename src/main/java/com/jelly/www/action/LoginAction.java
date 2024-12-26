@@ -31,7 +31,7 @@ public class LoginAction implements Action {
             session.setAttribute("userEmail", email); // 이메일 저장 추가 -- 형윤
 
             // 관리자 계정 확인 -- 형윤
-            if ("admin@gmail.com".equals(email) && "1234".equals(password)) {
+            if ("haribojellyam@gmail.com".equals(email) && "12341234".equals(password)) {
                 session.setAttribute("isAdmin", true); 
             } else {
                 session.setAttribute("isAdmin", false); 

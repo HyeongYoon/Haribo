@@ -213,10 +213,7 @@ button {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.post-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
+
 
 /* Image Wrapper */
 .imageWrapper {
@@ -355,7 +352,3 @@ button {
   transition: background-color 0.3s, transform 0.2s; /* 배경색과 변형 효과에 트랜지션 추가 */
 }
 
-/* 호버 시 효과 */
-.upload-style-btn:hover {
-  transform: scale(1.05); /* 약간 커지는 효과 */
-}
