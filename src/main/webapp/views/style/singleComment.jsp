@@ -13,7 +13,7 @@
         <span class="comment-contents">${comment.content}</span>
         
         <c:choose>
-		    <c:when test="${user.userId == comment.userId || user.userId === 'admin'}">
+		    <c:when test="${user.userId == comment.userId || user.email == 'haribojellyam@gmail.com'}">
 		        <button class="delete-comment-btn" data-comment-id="${comment.commentId}" 
 		                data-context-path="${pageContext.request.contextPath}" 
 		                data-post-id="${comment.postId}" 
