@@ -14,7 +14,7 @@ public class NoticeDeleteAction implements Action {
         String userEmail = (String) session.getAttribute("userEmail"); // 세션에서 이메일 가져옴
 
         // 관리자 권한 체크
-        if (userId == null || !"admin@gmail.com".equals(userEmail)) {
+        if (userId == null || !"haribojellyam@gmail.com".equals(userEmail)) {
             request.setAttribute("errorMessage", "권한이 없습니다.");
             return "/views/error/404.jsp"; 
         }
