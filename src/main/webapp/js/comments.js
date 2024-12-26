@@ -5,6 +5,13 @@ $(document).ready(function () {
   const $applyBtn = $("#postComment");
   const $comments = $("#comments");
   let rep = 1;
+  
+  
+  document.addEventListener("click", function (event) {
+      if (!$commentMenu[0].contains(event.target) && event.target !== $closeBtn[0]) {
+          $commentMenu.removeClass("open"); 
+      }
+  });
 
   // 필터 메뉴 열기
   $(document).on("click", "#open-comment-btn", function () {
@@ -48,6 +55,7 @@ $(document).ready(function () {
     console.log("[DEBUG] Closing comment menu.");
     $commentMenu.removeClass("open");
   });
+  
 
   // 댓글 추가 버튼 클릭 이벤트
   $applyBtn.on("click", function () {

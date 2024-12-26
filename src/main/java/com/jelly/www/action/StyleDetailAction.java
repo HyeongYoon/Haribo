@@ -81,6 +81,7 @@ public class StyleDetailAction implements Action {
 			postDao.close();
 			postImageDao.close();
 			userDao.close();
+			request.setAttribute("user", user);
 			request.setAttribute("postVo", postVo);
 			request.setAttribute("postImageList", postImageList);
 			request.setAttribute("userVo", userVo);
