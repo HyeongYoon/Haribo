@@ -89,12 +89,15 @@
    정보 섹션 스타일
 *************************** */
 /* 주문 정보 섹션 */
-.order-info {
-	display: flex; /* 내용을 flexbox로 배치 */
+.order-info, .coupon-info {
 	align-items: center; /* 세로 가운데 정렬 */
 	margin: 10px 0; /* 위아래 여백 */
 }
 
+.coupon-info {
+	display: flex;
+	flex-direction: column;
+}
 /* 주문 세부 정보 (예: 이름, 연락처) */
 .order-subInfo {
 	display: flex; /* 내용을 flexbox로 배치 */
@@ -185,8 +188,18 @@ hr {
 	border: #ddd solid 1px; /* 연한 회색 테두리 */
 	border-radius: 10px; /* 모서리를 둥글게 */
 	padding-left: 7px; /* 왼쪽 여백 */
-	margin-top: 5px; /* 위쪽 여백 */
+	margin: 5px 0px; /* 위쪽 여백 */
 	font-size: 13px; /* 글자 크기 */
+}
+
+.coupon-selection-info {
+	font-size: 13px;
+	padding: 10px;
+	border-radius: 10px;
+	border: #d4d4d4 1px solid;
+	width: 40%;
+	
+	
 }
 
 /* 결제 푸터 스타일 */
@@ -319,32 +332,43 @@ hr {
 	flex-direction: column
 }
 
-.addressInfo .name, .couponInfo .name {
+.add-addressInfo {
+	padding: 10px 0;
+	font-size: 13px;
+	padding-bottom: 10px;
+	width: 100%;
+	display: flex;
+	flex-direction: column
+}
+
+.addressInfo .name, .couponInfo .name, .coupon-selection-info .name {
 	font-weight: bold;
 	padding-bottom: 8px;
 	font-size: 14px;
 }
 
-.addressInfo div, .couponInfo div {
+.addressInfo div, .couponInfo div, .coupon-selection-info div {
 	padding: 3px 0px;
 }
 
 .couponInfoList {
 	border-radius: 8px;
-	padding: 20px;
+	padding-top: 25px;
 	margin: 0 auto;
 	display: flex;
+	flex-direction: column;
 }
 
 .couponInfo {
 	font-size: 13px;
 	padding: 10px;
+	margin: 5px 0px;
 	border-radius: 10px;
 	border: #d4d4d4 1px solid;
 	width: 100%;
 }
 
-.couponInfo .expiredate {
+.couponInfo .expiredate, .coupon-selection-info .expiredate {
 	float: right;
 	color: lightgray;
 }
@@ -417,6 +441,7 @@ input[type="text"]:focus {
 	align-items: flex-start;
 	justify-content: center;
 	font-size: 18px;
+	margin-right: 10px;
 }
 
 .addressInfo span {

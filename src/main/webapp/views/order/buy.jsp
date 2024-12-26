@@ -27,26 +27,28 @@
 		<div class="order-content">
 			<div class="order-title">
 				배송 주소
-				<button id="address-modalOpenButton">주소 변경</button>
+				<button id="address-modalOpenButton">주소 설정</button>
 			</div>
 			<c:choose>
-			<c:when test="${not empty defaultAddress}">
-			<div class="order-info">
-				<div class="order-subInfo">
-					<div class="fontGray">
-						<span>받는 분</span><br /> <span>연락처</span><br /> <span>주소</span>
+				<c:when test="${not empty defaultAddress}">
+					<div class="order-info">
+						<div class="order-subInfo">
+							<div class="fontGray">
+								<span>받는 분</span><br /> <span>연락처</span><br /> <span>주소</span>
+							</div>
+							<div>
+								<span>${user.userName }</span><br /> <span>${user.phoneNumber }</span><br />
+								<span>[${defaultAddress.postalCode}]
+									${defaultAddress.addressLine1 } ${defaultAddress.addressLine2 }</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span>${user.userName }</span><br /> <span>${user.phoneNumber }</span><br />
-						<span>[${defaultAddress.postalCode}] ${defaultAddress.addressLine1 }
-							${defaultAddress.addressLine2 }</span>
-					</div>
-				</div>
-			</div>
-			</c:when>
-			<c:otherwise>
-			<h3>주소를 설정하세요</h3>
-			</c:otherwise>
+				</c:when>
+				<c:otherwise>
+					<h4>
+						등록된 기본 배송지가 없습니다.<br> 새 주소를 추가해주세요!
+					</h4>
+				</c:otherwise>
 			</c:choose>
 			<select name="요청사항" id="" class="order-selection">
 				<option value="op1">요청사항 없음</option>
@@ -81,8 +83,9 @@
 			<div class="order-title">
 				<span>쿠폰</span>
 			</div>
-			<div class="order-info">
-				<button class="coupon-selection" id="coupon-modalOpenButton">사용가능한 쿠폰보기</button>
+			<div class="coupon-info">
+				<button class="coupon-selection" id="coupon-modalOpenButton">사용가능한
+					쿠폰보기</button>
 			</div>
 		</div>
 
@@ -97,12 +100,15 @@
 					<button class="account-btn">계좌로 간편결제</button>
 					<span>일반 결제</span><br />
 					<div class="payment-method">
-						<button class="payment-btn" id="credit-card">
-						신용카드</button>
+						<button class="payment-btn" id="credit-card">신용카드</button>
 						<button class="payment-btn" style="color: #00c73c" id="naver-pay">
-						<img src="<%=request.getContextPath()%>/img/naver.png" alt="" class="logoimg"/>NaverPay</button>
+							<img src="<%=request.getContextPath()%>/img/naver.png" alt=""
+								class="logoimg" />NaverPay
+						</button>
 						<button class="payment-btn" style="color: #ffcc00" id="kakao-pay">
-						<img src="<%=request.getContextPath()%>/img/kakao.png" alt="" class="logoimg"/>KakaoPay</button>
+							<img src="<%=request.getContextPath()%>/img/kakao.png" alt=""
+								class="logoimg" />KakaoPay
+						</button>
 					</div>
 				</div>
 			</div>
@@ -117,18 +123,21 @@
 				<div class="order-price">
 					<div class="price-detail">
 						<div>
-							<span>상품금액</span> <span>${formattedPrice }원</span>
+							<span>상품금액</span> <span><fmt:formatNumber value="${price}"
+									type="number" />원</span>
 						</div>
 						<div>
-							<span>배송비</span> <span>3,000원</span>
+							<span>배송비</span> <span><fmt:formatNumber value="${deliveryFee}"
+									type="number" />원</span>
 						</div>
 						<div>
-							<span>쿠폰</span> <span>-10,000원</span>
+							<span>쿠폰</span> <span><fmt:formatNumber
+									value="${discountPrice }" type="number" />원</span>
 						</div>
 					</div>
 					<div class="total-price">
 						<span>총 결제금액</span> <span><fmt:formatNumber
-								value="${price - 7000 }" type="number" />원</span>
+								value="${totalPrice+deliveryFee}" type="number" />원</span>
 					</div>
 				</div>
 			</div>
@@ -144,30 +153,30 @@
 			</div>
 			<button class="addBtn">+ 새 주소 추가하기</button>
 			<c:if test="${not empty addressList }">
-			 <div class="addressInfoList">
-            <c:forEach var= "address" items="${addressList }">
-				 <button class="addressInfo" value="${address.postalCode }">
-					<div class="name">${user.userName }</div>
-					<div class="address">[${address.postalCode }]
-						${address.addressLine1 } ${address.addressLine2 }</div>
-					<div class="phone">${user.phoneNumber }</div>
-				</button> 
-			</c:forEach>
+				<div class="addressInfoList">
+					<c:forEach var="address" items="${addressList }">
+						<button class="addressInfo" value="${address.postalCode }">
+							<div class="name">${user.userName }</div>
+							<div class="address">[${address.postalCode }]
+								${address.addressLine1 } ${address.addressLine2 }</div>
+							<div class="phone">${user.phoneNumber }</div>
+						</button>
+					</c:forEach>
 			</c:if>
-			</div> 
 		</div>
 	</div>
+	</div>
 	<!-- 주소 모달 끝 -->
-	
+
 	<!-- 새 주소 추가 모달 -->
 	<div class="hidden" id="add-address-modalContainer">
 		<div id="modalContent">
 			<div class="modalTitle">
-				<button class="modal-close" id="add-address-modalCloseButton" >&times;</button>
+				<button class="modal-close" id="add-address-modalCloseButton">&times;</button>
 				<h3 class="modal-title">주소 추가</h3>
 			</div>
 			<div class="addressInfoList">
-				<div class="addressInfo">
+				<div class="add-addressInfo">
 					<div class="input-box">
 						<div class="sub-title" id="name">이름</div>
 						<input type="text" name="" class="inputText" id="input-name"
@@ -207,7 +216,7 @@
 		</div>
 	</div>
 	<!-- 새주소 추가 모달 끝 -->
-	
+
 
 	<!-- 쿠폰 모달 -->
 	<div class="hidden" id="coupon-modalContainer">
@@ -216,14 +225,17 @@
 				<button class="modal-close" id="coupon-modalCloseButton">&times;</button>
 				<h3 class="modal-title">쿠폰</h3>
 			</div>
-			<div class="couponInfoList">
-				<div class="couponInfo">
-					<div class="name">쿠폰 이름</div>
-					<div class="detail">쿠폰 상세</div>
-					<div class="expiredate">쿠폰 유효기간</div>
+				<div class="couponInfoList">
+			<c:forEach var="coupon" items="${userCouponList }">
+					<button class="couponInfo" value="${coupon.couponId}">
+						<div class="name">${coupon.couponCode }</div>
+						<div class="detail">${coupon.description }</div>
+						<div class="expiredate">${coupon.expiryDate }</div>
+					</button>
+			</c:forEach>
 				</div>
-			</div>
 		</div>
+	</div>
 	</div>
 	<!-- 쿠폰 모달 끝 -->
 
@@ -231,7 +243,7 @@
 	<!-- 결제 푸터 -->
 	<div class="payment-footer">
 		<button class="payment-submit-btn">
-			<fmt:formatNumber value="${price - 7000 }" type="number" />
+			<fmt:formatNumber value="${totalPrice+deliveryFee}" type="number" />
 			원 결제하기
 		</button>
 	</div>
@@ -360,7 +372,7 @@ $(()=> {
 	        },
 	        success: function(response) {
 	            console.log("주소 저장 성공");
-	            window.location.href = "${pageContext.request.contextPath}/jelly?page=addressBook";  // 주소록으로 
+	            window.location.href = "${pageContext.request.contextPath}/jelly?page=buy&productId=${product.productId}&size=${size}&price=${price}"; 
 	        },
 	        error: function(xhr, status, error) { // 함수 형태로 수정
 	            console.log("주소 저장 실패:", error);
@@ -371,19 +383,19 @@ $(()=> {
 	});
 
 	// 주소 클릭하면 그 주소로 변하게 ... 
-	$(".addressInfoList").on("click", (e)=>{
+	$(".addressInfo").on("click", (e)=>{
 	let postalCode = e.target.value;
 	console.log(postalCode);
 
 	$.ajax({
-		url: "/haribo/setDefaultAddress",
+		url: "/haribo/changeAddressOrCoupon",
 		method: "get",
 		data:{
 			postalCode : postalCode,
 		},
 		success : function(response){
 			console.log("기본 배송지 변경 성공");
- 			window.location.href = "${pageContext.request.contextPath}/jelly?page=buy";
+ 			window.location.href = "${pageContext.request.contextPath}/jelly?page=buy&productId=${product.productId}&size=${size}&price=${price}&postalCode="+postalCode;
  		},
 		error: function(xhr, status, error) { // 함수 형태로 수정
 	        console.log("주소 저장 실패:", error);
@@ -394,6 +406,15 @@ $(()=> {
 	}) ;
 		
 })
+
+// 쿠폰 클릭하면 쿠폰 적용되게 
+$(".couponInfo").on("click",function(e){
+	console.log($(this).val());
+		let couponId = $(this).val();
+	console.log(couponId);
+ 	 window.location.href = "${pageContext.request.contextPath}/jelly?page=buy&productId=${product.productId}&size=${size}&price=${price}&couponId="+ couponId;
+});
+
 	// 결제 수단
 	let paymentMethod = '';
 	function setPaymentMethod(payment){
@@ -430,8 +451,8 @@ $(()=> {
 			channelKey : "channel-key-6b669b9c-926d-448b-bc47-4c8cdce14767",
 			// 결제 승인 ID = 주문 번호
 			paymentId : tradeId ,
-			orderName : "${formattedPrice}",
-			totalAmount : ${product.initialPrice},
+			orderName : "${product.productName}", // 상품명
+			totalAmount : ${totalPrice-deliveryFee}, // 총 결제 금액
 			currency : "CURRENCY_KRW",
 			payMethod : "CARD"
 			});
@@ -444,8 +465,8 @@ $(()=> {
  				channelKey : "channel-key-6b669b9c-926d-448b-bc47-4c8cdce14767",
  				// 결제 승인 ID = 주문 번호
  				paymentId : tradeId,
- 				orderName : "${formattedPrice}",
- 				totalAmount : ${product.initialPrice},
+ 				orderName : "${product.productName}", // 상품명
+ 				totalAmount : ${totalPrice-deliveryFee}, // 총 결제 금액
  				currency : "CURRENCY_KRW",
  				payMethod : "TRANSFER"
  				});
@@ -459,7 +480,7 @@ $(()=> {
  				// 결제 승인 ID = 주문 번호
  				paymentId : tradeId,
  				orderName : "${formattedPrice}",
- 				totalAmount : ${product.initialPrice},
+ 				totalAmount : ${totalPrice-deliveryFee},
  				currency : "CURRENCY_KRW",
  				payMethod : "EASY_PAY",
  				easyPay : {easyPayProvider : NAVERPAY},
@@ -473,8 +494,8 @@ $(()=> {
  				channelKey : "channel-key-38371db4-4cc5-40f0-8c4a-f6c37106abdc",
  				// 결제 승인 ID = 주문 번호
  				paymentId : tradeId,
- 				orderName : "${formattedPrice}",
- 				totalAmount : ${product.initialPrice},
+ 				orderName : "${product.productName}", // 상품명
+ 				totalAmount : ${totalPrice-deliveryFee}, // 총 결제 금액
  				currency : "CURRENCY_KRW",
  				payMethod: "EASY_PAY",
  				});
@@ -484,18 +505,20 @@ $(()=> {
 		    url: '/haribo/buyData', // 결제 정보를 dao에 넣는 서블릿으로 이
 		    method: "get",
 		    data: {
-		    	tradeId: tradeId,
+		    	orderNo: tradeId,
 		        txId: response.txId,
 		        productName: "${product.productName}", 
-		        totalPrice: ${price - 10000}, // 쿠폰까지 먹인 최종가 나중에 변경해야 함
+		        totalPrice: ${totalPrice-deliveryFee}, // 쿠폰까지 먹인 최종가 나중에 변경해야 함
 		        price : ${price}, // 사용자가 입력한 판매 입찰가
 		        productId: "${product.productId}",
 		        size: "${size}",
-		       	payMethod : payMethod
+		       	payMethod : payMethod,
+		       	couponId: ${selectCouponId}
+		       	
 		    },
 		    success: function(response) {
 		        console.log("결제 성공");
-		        window.location.href = "${pageContext.request.contextPath}/jelly?page=buyConfirm&productId=${product.productId}&price=${price}";  // 결제 완료 페이지로 이동
+		        window.location.href = "${pageContext.request.contextPath}/jelly?page=buyConfirm&productId=${product.productId}&price=${totalPrice}&couponId=${selectCouponId}";  // 결제 완료 페이지로 이동
 		    },
 		    error: function(xhr, status, error) { // 함수 형태로 수정
 		        console.log("결제 실패:", error);

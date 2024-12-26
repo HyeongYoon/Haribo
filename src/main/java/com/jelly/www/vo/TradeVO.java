@@ -24,5 +24,11 @@ public class TradeVO {
 	Timestamp completedAt;
 	Timestamp createdAt;
 	Timestamp updatedAt;
+	int orderNo;
 	
+	
+	// trade_id 조회용
+	public TradeVO (int tradeId) {
+		this.tradeId = tradeId;
+	}
 }

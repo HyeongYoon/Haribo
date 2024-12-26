@@ -64,7 +64,7 @@ public class InsertSellData extends HttpServlet {
 			// 그런 구매자가 있다면
 			if (productBuyerId != 0) {
 				trade = TradeVO.builder()
-					.tradeId(tradeId)
+					.orderNo(tradeId)
 					.productSellerId(userId) 
 					.buyerId(userId)
 					.addressId(defaultAddressId)
@@ -74,7 +74,7 @@ public class InsertSellData extends HttpServlet {
 					.build();
 			} else { // 그런 구매자가 없다면
 				trade = TradeVO.builder()
-						.tradeId(tradeId)
+						.orderNo(tradeId)
 						.productSellerId(userId) 
 						.addressId(defaultAddressId)
 						.couponId(1) //  쿠폰도 우선 1 로 함 (제약조건은 없앴으나 )

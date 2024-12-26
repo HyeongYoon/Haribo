@@ -31,14 +31,16 @@
 							<span style="color: black">상품금액</span> <span style="color: black">${product.initialPrice }원</span>
 						</div>
 						<div>
-							<span>배송비</span> <span>5,000원</span>
+							<span>배송비</span> <span><fmt:formatNumber value="${deliveryFee}"
+									type="number" />원</span>
 						</div>
 						<div>
-							<span>쿠폰</span> <span>-10,000원</span>
+							<span>쿠폰</span> <span><fmt:formatNumber
+									value="${discountPrice }" type="number" />원</span>
 						</div>
 					</div>
 					<div class="total-price">
-						<span>총 결제금액</span> <span>${product.initialPrice - 5000 }원</span>
+						<span>총 결제금액</span> <span>${formattedPrice}원</span>
 					</div>
 				</div>
 			</div>

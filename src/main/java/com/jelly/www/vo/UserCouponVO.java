@@ -18,4 +18,8 @@ public class UserCouponVO {
 	Boolean isUsed;
 	Timestamp usedAt;
 	
+	public UserCouponVO(int userId, int couponId) {
+		this.userId = userId;
+		this.couponId = couponId;
+	}
 }

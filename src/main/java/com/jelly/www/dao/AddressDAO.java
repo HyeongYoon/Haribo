@@ -86,6 +86,34 @@ public class AddressDAO {
 		return list;
 	}
 
+	// 주소 한건 조회
+	public AddressVO selectAddressOne(int userId, int addressId) {
+		AddressVO vo = null;
+		sb.setLength(0);
+		sb.append("SELECT address_id, postal_code, address_line1, address_line2 ");
+		sb.append("FROM ADDRESS WHERE user_id = ? AND address_id = ?");
+
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, userId);
+			pstmt.setInt(2, addressId);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				vo = new AddressVO(rs.getInt("address_id"), 
+								   rs.getString("postal_code"), 
+								   rs.getString("address_line1"),
+								   rs.getString("address_line2"));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}
+	
+	
 	// 기본 주소 해제
 	public void unsetDefaultAddress(int userId, boolean isDefault) {
 		AddressVO vo = null;
@@ -168,15 +196,17 @@ public class AddressDAO {
 		}
 
 	}
-
+	// 주소 삭제
 	public void DeleteAddressOne(int userId, String postalCode) {
 		sb.setLength(0);
 		sb.append("DELETE FROM ADDRESS WHERE user_id = ? AND postal_code = ?");
-		System.out.println("주소 삭제 성공");
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setInt(1, userId);
 			pstmt.setString(2, postalCode);
+			
+			pstmt.executeUpdate();
+			System.out.println("주소 삭제 성공");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
