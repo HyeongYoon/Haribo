@@ -26,7 +26,7 @@
         </div>
       </div>
       <c:choose>
-        <c:when test="${(sessionScope.user != null && sessionScope.user.userId == postVo.userId) || user.email == 'jane@example.com'}">
+        <c:when test="${(sessionScope.user != null && sessionScope.user.userId == postVo.userId) || user.email == 'admin@gmail.com'}">
           <div class="edit-btn" data-context-path="${pageContext.request.contextPath}" data-post-id="${postVo.postId}">
             <a href="<%= request.getContextPath() %>/jelly?page=styleModify&postId=${postVo.postId}">스타일 수정하기</a>
           </div>
