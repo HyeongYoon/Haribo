@@ -55,7 +55,7 @@
 		<br />
 		<br />
 		<br />
-		<form>
+		<form action="<%=request.getContextPath()%>/jelly?page=confirmPw">
 			<div class="form-group">
 				<br />
 				<p class="p-content">임시 비밀번호를 전송하였습니다.</p>
@@ -63,8 +63,6 @@
 				<br /> 
 			</div>
 			<br />
-		</form>
-		<form action="<%= request.getContextPath() %>/jelly?page=login">
 			<button type="submit" class="login-btn">로그인</button>
 		</form>
 	</div>

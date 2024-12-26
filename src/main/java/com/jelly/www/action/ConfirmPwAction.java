@@ -48,8 +48,8 @@ public class ConfirmPwAction implements Action {
 			props.put("mail.smtp.socketFactory.fallback", "false");
 
 			// 보내는 사람 이메일 및 비밀번호
-			String username = "doyeon0099@gmail.com";
-			String password = "nvzvqgvvkwguocms";
+			String username = "haribojellyam@gmail.com";
+			String password = "gwwtvrtounytwusl";
 
 			// 받는 사람 이메일
 			String receiver = userEmail;

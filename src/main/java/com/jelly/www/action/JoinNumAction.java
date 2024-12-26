@@ -85,8 +85,8 @@ public class JoinNumAction implements Action {
 				p.put("mail.smtp.socketFactory.fallback", "false");
 
 				// 보내는 사람 이메일 및 비밀번호
-				String jellyemail = "doyeon0099@gmail.com";
-				String jellypassword = "pzlcrryodwsklbnr";
+				String jellyemail = "haribojellyam@gmail.com";
+				String jellypassword = "gwwtvrtounytwusl";
 
 				// 받는 사람 이메일
 				String receiver = email;

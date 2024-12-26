@@ -244,42 +244,8 @@ public class UserDAO {
         return false; // 중복이 없으면 false 
     }
     
-//     //8. 가입 시 입력한 휴대폰 번호로 이메일 찾기
-//    public UserVO findEmail(String phonenumber) {
-//        UserVO user = null;
-//        sb.setLength(0);
-//        sb.append("SELECT EMAIL FROM USER WHERE PHONE_NUMBER = ?");
-//
-//        try {
-//            pstmt = conn.prepareStatement(sb.toString());
-//            pstmt.setString(1, phonenumber);
-//            rs = pstmt.executeQuery();
-//
-//            if (rs.next()) {
-//                user = new UserVO(
-//                    rs.getInt("user_id"),
-//                    rs.getString("username"),
-//                    rs.getString("nickname"),
-//                    rs.getString("email"),
-//                    rs.getString("password"),
-//                    rs.getString("phone_number"),
-//                    rs.getString("birth"),
-//                    rs.getString("kakao_id"),
-//                    rs.getString("naver_id"),
-//                    rs.getString("profile_image"),
-//                    rs.getTimestamp("created_at"),
-//                    rs.getTimestamp("updated_at")
-//                );
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            close();
-//        }
-//
-//        return user;
-//    }
     
+    //8. 핸드폰 번호로 이메일 찾기
     public UserVO findEmail(String phonenumber) {
         UserVO user = null;
         sb.setLength(0);
@@ -372,7 +338,64 @@ public class UserDAO {
 
         return user;
     }
+    
+ // 11. 이메일 변경
+    public UserVO updateInfoUserEmail(String userEmail, int userId) {
+        UserVO user = null;
+        StringBuilder sb = new StringBuilder();
+        sb.append("UPDATE USER SET email = ? WHERE user_id = ?");
+
+        try {
+            pstmt = conn.prepareStatement(sb.toString());
+            pstmt.setString(1, userEmail);
+            pstmt.setInt(2, userId);
+            int result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
   
+ // 12. 비밀번호 변경
+    public UserVO updateInfoUserPw(String userPw, int userId) {
+        UserVO user = null;
+        StringBuilder sb = new StringBuilder();
+        sb.append("UPDATE USER SET password = ? WHERE user_id = ?");
+
+        try {
+            pstmt = conn.prepareStatement(sb.toString());
+            pstmt.setString(1, userPw);
+            pstmt.setInt(2, userId);
+            int result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+    
+ // 13. 휴대폰 번호 변경
+    public UserVO updateInfoUserPhoneNumber(String userPhoneNum, int userId) {
+        UserVO user = null;
+        StringBuilder sb = new StringBuilder();
+        sb.append("UPDATE USER SET phone_number = ? WHERE user_id = ?");
+
+        try {
+            pstmt = conn.prepareStatement(sb.toString());
+            pstmt.setString(1, userPhoneNum);
+            pstmt.setInt(2, userId);
+            int result = pstmt.executeUpdate();
+
+      
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
     
     // 자원 해제
     private void close() {
