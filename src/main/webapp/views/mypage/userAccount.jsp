@@ -27,7 +27,7 @@ function showAlert() {
 		<div class="mypage-content">
 			<div class="mypageSubtitle">판매 정산 계좌</div>
 			<form action="<%=request.getContextPath()%>/jelly?page=userAccount" method="post">
-				<input type="hidden" name="action" value="${empty successMessage ? 'save' : 'modify'}" />
+				<%-- <input type="hidden" name="action" value="${empty successMessage ? 'save' : 'modify'}" /> --%>
 				<div class="loginInfo-content">
 					<div class="unit">
 						<span class="unit-title">은행명</span>

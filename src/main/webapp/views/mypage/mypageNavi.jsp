@@ -54,11 +54,11 @@
       <!-- 로그인 관리 -->
       <p class="mypage-sbn-menu">
        <c:choose>
-            <c:when test="${param.page == ''}">
-              <a href="<%=request.getContextPath()%>/jelly?page=" style="color:black; font-weight: bold">로그인 관리</a>
+            <c:when test="${param.page == 'loginInfo'}">
+              <a href="<%=request.getContextPath()%>/jelly?page=loginInfo" style="color:black; font-weight: bold">로그인 관리</a>
             </c:when>
             <c:otherwise>
-              <a href="<%=request.getContextPath()%>/jelly?page=">로그인 관리</a>
+              <a href="<%=request.getContextPath()%>/jelly?page=loginInfo">로그인 관리</a>
             </c:otherwise>
       </c:choose>
       </p>

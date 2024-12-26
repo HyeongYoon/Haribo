@@ -93,7 +93,9 @@ public class JellyController extends HttpServlet {
         	action = new UserAccountSAction();// 판매 정산 계좌 이동(조회 후 세션에 저장)
         } else if (page.equals("profileInfo")) {
             url = "/views/mypage/profileInfo.jsp"; // 프로필 관리 계좌 이동
-        }  else {
+        } else if (page.equals("loginInfo")) {
+            url = "/views/mypage/loginInfo.jsp"; // 프로필 관리 계좌 이동
+        } else {
             url = "/WEB-INF/views/error/404.jsp"; // 에러 페이지 처리
         } 
 

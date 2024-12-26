@@ -13,16 +13,16 @@
 		<!-- 헤더 TOP -->
 		<div class="header-top">
 			<ul class="header-menu">
-				<li><a href="/notice">고객센터</a></li>
-				<li><a href="/mypage">마이페이지</a></li>
-				<li><a href="/saved">관심</a></li>
-				<li><a href="/login">로그인</a></li>
+				<li><a href="<%= request.getContextPath() %>/jelly?page=notice">고객센터</a></li>
+				<li><a href="<%= request.getContextPath() %>/jelly?page=mypage">마이페이지</a></li>
+				<li><a href="<%= request.getContextPath() %>/jelly?page=wish">관심</a></li>
+				<li><a href="<%= request.getContextPath() %>/jelly?page=login">로그인</a></li>
 			</ul>
 		</div>
 
 		<!-- 헤더 MAIN -->
 		<div class="header-main">
-			<a href="/" class="logo"> <img src="<%= request.getContextPath() %>/img/jellyLogo.png"
+			<a href="<%= request.getContextPath() %>/jelly?page=home" class="logo"> <img src="<%= request.getContextPath() %>/img/jellyLogo.png"
 				alt="jellyLogo" />
 			</a>
 			<!-- 헤더 BOTTOM -->

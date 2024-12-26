@@ -66,8 +66,7 @@
 				<h3><c:out value="${maskedemail}" /></h3>
 			</div>
 			<br />
-			<button type="submit" class="login-btn">로그인</button>
-		<a href="<%= request.getContextPath() %>/jelly?page=login">로그인</a>
+			<a href="<%= request.getContextPath() %>/jelly?page=login"><button type="button" class="login-btn">로그인</button></a>
 	</div>
 
 </body>

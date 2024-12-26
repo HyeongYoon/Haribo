@@ -13,7 +13,6 @@ public class UserAccountAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        String action = req.getParameter("action");
         String bankname = req.getParameter("bankname");
         String accountnum = req.getParameter("accountnum");
         String accountname = req.getParameter("accountname");
@@ -26,22 +25,19 @@ public class UserAccountAction implements Action {
 
         UserAccountDAO dao = new UserAccountDAO();
 
-        if ("modify".equals(action)) {
-            // 입력된 데이터를 UserAccountVO 객체로 설정
+        if (bankname != null) {
             UserAccountVO user1 = new UserAccountVO();
             user1.setBankName(bankname);
             user1.setAccountNumber(accountnum);
             user1.setAccountHolder(accountname);
             user1.setUserId(sessionuserid);
 
-            // 테이블 데이터를 수정하는 메서드 호출
+            // 데이터 수정 메서드
             dao.updateAccount(user1);
             
             session.setAttribute("bankname", user1.getBankName());
             session.setAttribute("accountnum", user1.getAccountNumber());
             session.setAttribute("accountname", user1.getAccountHolder());
-            
-            System.out.println(user1.getBankName());
     
 
             req.setAttribute("successMessage", "계좌 정보가 수정되었습니다.");

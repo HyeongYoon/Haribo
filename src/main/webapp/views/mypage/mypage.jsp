@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/mypage.css" />
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/mypageCommon.css" />
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/profileInfo.css" />
+    <style type="text/css">
+    .profile-info-btn:hover{
+    cursor: pointer;
+    }
+    </style>
   </head>
   <body>
     <div class="mypage-container">
@@ -26,7 +31,7 @@
             <span class="profile-user-email">${user.email}</span>
           </div>
           <div class="profile-btns">
-            <input type="button" value="프로필 관리" class="profile-info-btn" />
+            <input type="button" value="프로필 관리" class="profile-info-btn"/>
             <input type="button" value="내스타일" class="profile-info-btn" />
           </div>
         </div>
