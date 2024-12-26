@@ -171,8 +171,7 @@ public class JellyController extends HttpServlet {
         } else if ("joinOk".equals(page)) {
             action = new JoinOkAction(); // 회원가입 요청 처리
         } else if ("delete".equals(page)) {
-        	action = new DeleteStyleAction();
-            System.out.println("deleting");
+        	action = new DeleteStyleAction(); // 스타일 포스팅 삭제
         } else if (page.equals("updateProfileInfo")) {
             action = new MyProfileInfoUpdateAction(); // 프로필 정보 업데이트
         } else if ("noticeWrite".equals(page)) {
