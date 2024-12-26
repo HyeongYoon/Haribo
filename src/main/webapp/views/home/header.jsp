@@ -39,7 +39,8 @@
         <li>
           <c:choose>
             <c:when test="${sessionScope.user != null}">
-              <a href="<%= request.getContextPath() %>/jelly?page=logout">로그아웃</a>
+            <span style="font-weight: bolder;">안녕하세요, ${sessionScope.user.userName}님!</span>
+              <a href="<%= request.getContextPath() %>/jelly?page=logout"> 로그아웃</a>
             </c:when>
             <c:otherwise>
               <a href="<%= request.getContextPath() %>/jelly?page=login">로그인</a>

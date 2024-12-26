@@ -133,6 +133,18 @@ public class JellyController extends HttpServlet {
         } else if (page.equals("filter")) {
             resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "GET 요청은 허용되지 않습니다.");
             return;
+        } else if (page.equals("findEmail")) {
+            action = new FindEmailAction(); // 이메일 찾기 페이지 처리
+        } else if (page.equals("findPw")) {
+            action = new FindPwAction(); // 비밀번호 찾기 페이지 처리
+        } else if (page.equals("userAccount")) {
+        	action = new UserAccountSAction();// 판매 정산 계좌 이동(조회 후 세션에 저장)
+        } else if (page.equals("profileInfo")) {
+            url = "/views/mypage/profileInfo.jsp"; // 프로필 관리 계좌 이동
+        } else if (page.equals("loginInfo")) {
+        	action = new LoginInfoSAction(); // 로그인 정보 이동(조회 후 세션에 저장)
+        } else if (page.equals("confirmPw")) {
+            url = "/views/login/login.jsp"; // 비밀번호 찾기 후 로그인페이지 이동
         } else {
             url = "/views/error/404.jsp"; // 에러 페이지 처리
         }
@@ -188,6 +200,22 @@ public class JellyController extends HttpServlet {
             action = new WishlistToggleAction(); // 관심상품 토글 처리
         } else if ("checkWishlist".equals(page)) {
                 action = new CheckWishlistAction(); // 관심상품 상태 확인 액션
+        } else if ("joinNum".equals(page)) {
+            action = new JoinNumAction(); // 인증 코드 처리
+        }  else if ("joinOk".equals(page)) {
+            action = new JoinOkAction(); // 인증코드 입력 후 회원가입 요청 처리
+        }  else if ("findoutEmail".equals(page)) {
+            action = new FindOutEmailAction();
+        }   else if ("confirmPw".equals(page)) {
+            action = new ConfirmPwAction(); // 비밀번호 찾기 페이지 처리
+        } else if ("userAccount".equals(page)) {
+            action = new UserAccountAction(); // 판매 정산 계좌 추가 페이지 처리
+        } else if ("loginInfoEmail".equals(page)) {
+            action = new LoginInfoEmailAction(); // 이메일 변경 처리
+        } else if ("loginInfoPw".equals(page)) {
+            action = new LoginInfoPwAction(); // 비밀번호 변경 처리
+        } else if ("loginInfoPhoneNumber".equals(page)) {
+            action = new LoginInfoPhoneNumerAction(); // 휴대폰번호 변경 처리
         } else {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, "요청 처리 대상이 없습니다.");
             return;
