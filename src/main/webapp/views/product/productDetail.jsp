@@ -305,13 +305,13 @@
           <div class="size-item">
             <c:choose>
               <c:when test="${sellSizeButtons[sizeVal] == '판매 입찰'}">
-                <a href="${pageContext.request.contextPath}/jelly?page=orderBid&productId=${product.productId}&size=${sizeVal}" class="size-button">
+                <a href="${pageContext.request.contextPath}/jelly?page=sellBid&productId=${product.productId}&size=${sizeVal}" class="size-button">
                   <span>${sizeVal}</span>
                   <span class="price bid-label">판매 입찰</span>
                 </a>
               </c:when>
               <c:otherwise>
-                <a href="${pageContext.request.contextPath}/jelly?page=order&productId=${product.productId}&size=${sizeVal}&price=${sellSizeButtons[sizeVal]}" class="size-button">
+                <a href="${pageContext.request.contextPath}/jelly?page=sell&productId=${product.productId}&size=${sizeVal}&price=${sellSizeButtons[sizeVal]}" class="size-button">
                   <span>${sizeVal}</span>
                   <span class="price">${sellSizeButtons[sizeVal]}</span>
                 </a>
