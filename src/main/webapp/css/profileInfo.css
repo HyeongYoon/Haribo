@@ -26,9 +26,11 @@
 }
 
 .profile-user-nickname {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0;
     font-size: 20px;
     font-weight: bold;
-    display: inline-block;
     margin-bottom: 4px;
 }
 
@@ -50,7 +52,8 @@
 }
 
 .nickname-edit-btn {
-    background-color: white;
+	display: inline-block;
+	vertical-align: middle;
     color: black;
     border: 1px solid lightgray;
     border-radius: 5px;
@@ -58,4 +61,5 @@
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
 }
