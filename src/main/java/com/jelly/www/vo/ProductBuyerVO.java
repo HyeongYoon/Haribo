@@ -22,7 +22,7 @@ public class ProductBuyerVO {
 	Timestamp createdAt;
 	Timestamp updatedAt;
 
- // 구매자 조회용	
+	// 구매자 조회용	
 	public ProductBuyerVO(int productBuyerId) {
 		this.productBuyerId = productBuyerId;
 	}
