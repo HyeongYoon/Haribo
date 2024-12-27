@@ -3,6 +3,7 @@ package com.jelly.www.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.jelly.www.vo.SizeVO;
 
 public class SizeDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -56,8 +57,30 @@ public class SizeDAO {
         return productIds;
     }
 
+    // 상품 ID와 사이즈로 사이즈ID 찾기
+    public SizeVO selectSizeIdByProductIdAndSize(int size, int productId) {
+    	SizeVO vo = null;
+    	sb.setLength(0);
+    	sb.append("SELECT size_id FROM SIZE WHERE size = ? AND product_id = ? ");
+    	
+    	try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, size);
+			pstmt.setInt(2, productId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				vo = new SizeVO(rs.getInt("size_id"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+    	return vo;
+    }
+    
+    
     // 자원 해제 메서드
-    public void close() {
+    private void close() {
         try {
             if (rs != null) rs.close();
             if (pstmt != null) pstmt.close();

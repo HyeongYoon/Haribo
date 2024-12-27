@@ -1,10 +1,16 @@
 package com.jelly.www.dao;
 
 import java.sql.*;
+
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import com.jelly.www.vo.AddressVO;
+import com.jelly.www.vo.UserAccountVO;
 import com.jelly.www.vo.UserVO;
+
 
 public class UserDAO {
     private String driver = "com.mysql.cj.jdbc.Driver";
@@ -116,24 +122,38 @@ public class UserDAO {
         return user;
     }
 
-    // 3. 사용자 추가
+ // 3. 사용자 추가
     public int insertOne(UserVO user) {
         sb.setLength(0);
         sb.append("INSERT INTO USER (user_name, nickname, email, password, phone_number, birth_date, kakao_id, naver_id, profile_image, created_at, updated_at) ");
         sb.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
 
         int result = 0;
+
         try {
             pstmt = conn.prepareStatement(sb.toString());
+            
+            // 닉네임이 null이거나 비어 있으면 10자리 랜덤 닉네임 생성
+            String nickname = user.getNickname();
+            if (nickname == null || nickname.isEmpty()) {
+                nickname = generateRandomNickname(10); // 10자리 랜덤값 생성
+            }
             pstmt.setString(1, user.getUserName());
-            pstmt.setString(2, user.getNickname());
+            pstmt.setString(2, nickname); // 랜덤 닉네임
             pstmt.setString(3, user.getEmail());
             pstmt.setString(4, user.getPassword());
             pstmt.setString(5, user.getPhoneNumber());
             pstmt.setString(6, user.getBirthDate());
             pstmt.setString(7, user.getKakaoId());
             pstmt.setString(8, user.getNaverId());
-            pstmt.setString(9, user.getProfileImage());
+
+            // 기본 프로필 이미지 설정
+            String profileImage = user.getProfileImage();
+            if (profileImage == null || profileImage.isEmpty()) {
+                profileImage = "https://www.pngarts.com/files/10/Default-Profile-Picture-Download-PNG-Image.png";
+            }
+            pstmt.setString(9, profileImage);
+
             result = pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -142,6 +162,19 @@ public class UserDAO {
         }
 
         return result;
+    }
+    
+    // 랜덤 닉네임 생성
+    private String generateRandomNickname(int length) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder nickname = new StringBuilder(length);
+        Random random = new Random();
+
+        for (int i = 0; i < length; i++) {
+            nickname.append(chars.charAt(random.nextInt(chars.length())));
+        }
+
+        return nickname.toString();
     }
 
     // 4. 사용자 삭제
@@ -199,6 +232,7 @@ public class UserDAO {
         sb.setLength(0);
         sb.append("SELECT * FROM USER WHERE email = ? AND password = ?");
 
+       
         try {
             pstmt = conn.prepareStatement(sb.toString());
             pstmt.setString(1, email);
@@ -252,7 +286,7 @@ public class UserDAO {
         
         return false; // 중복이 없으면 false 
     }
-    
+
 
 	// 팔로우 증가 메서드
 	public void plusFollow(int followerId, int followingId) {
@@ -463,7 +497,7 @@ public class UserDAO {
 
         return user;
     }
-    
+
     // 자원 해제
     public void close() {
         try {

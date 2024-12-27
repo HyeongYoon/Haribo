@@ -28,7 +28,7 @@ public class JellyController extends HttpServlet {
         // 요청 처리
         if (query != null && !query.trim().isEmpty()) {
             action = new SearchAction(); // 검색 요청 처리
-        } else if (page == null || page.equals("home")) {	
+        } else if (page == null || page.equals("home")) {
             action = new HomeAction(); // 홈 화면 처리
         } else if (page.equals("login")) {
             url = "/views/login/login.jsp"; // 로그인 페이지 처리
@@ -36,18 +36,26 @@ public class JellyController extends HttpServlet {
             url = "/views/join/joinForm.jsp"; // 회원가입 페이지 이동
         } else if (page.equals("logout")) {
             action = new LogoutAction(); // 로그아웃 처리
-        } else if ("checkWishlist".equals(page)) {
-                action = new CheckWishlistAction();  // 관심상품 상태를 확인하는 액션
+        } else if (page.equals("wish")) {
+            if (isUserLoggedIn(req)) {
+                action = new WishPageAction(); // 관심 페이지 처리
+            } else {
+                url = "/views/login/login.jsp"; // 로그인 페이지로 리다이렉트
+            }
+        } else if (page.equals("mypage")) {
+            if (isUserLoggedIn(req)) {
+                action = new MypageAction(); // 마이 페이지 처리
+            } else {
+                url = "/views/login/login.jsp"; // 로그인 페이지로 리다이렉트
+            }
+        } else if (page.equals("notice")) {
+            action = new NoticeAction(); // 공지사항 페이지 처리
         } else if (page.equals("bottoms")) {
             action = new BottomsAction(); // 하의 페이지 처리
         } else if (page.equals("brand")) {
             action = new BrandAction(); // 브랜드 페이지 처리
         } else if (page.equals("category")) {
             action = new CategoryAction(); // 카테고리 페이지 처리
-        } else if (page.equals("wish")) {
-            action = new WishPageAction(); // 장바구니 페이지 처리
-        } else if (page.equals("rank")) {
-            action = new RankPageAction(); // 장바구니 페이지 처리
         } else if (page.equals("hats")) {
             action = new HatsAction(); // 모자 페이지 처리
         } else if (page.equals("luxury")) {
@@ -59,92 +67,41 @@ public class JellyController extends HttpServlet {
         } else if (page.equals("wallets")) {
             action = new WalletsAction(); // 지갑 페이지 처리
         } else if (page.equals("shoes")) {
-            action = new ShoesAction(); // 신발 페이지
-            req.setAttribute("currentPage", "shop"); // 현재 페이지 설정
+            action = new ShoesAction(); // 신발 페이지 처리
         } else if (page.equals("bags")) {
             action = new BagsAction(); // 가방 페이지 처리
         } else if (page.equals("styleDetail")) {
-        	action = new StyleDetailAction(); // 스타일 디테일 페이지 처리
+            action = new StyleDetailAction(); // 스타일 디테일 페이지 처리
         } else if (page.equals("styleList")) {
-        	action = new StyleListAction(); // 스타일 list 처리
+            action = new StyleListAction(); // 스타일 리스트 페이지 처리
         } else if (page.equals("styleProfile")) {
-        	action = new StyleProfileAction(); // 스타일 프로필 처리
-        } else if (page.equals("styleModify")) {
-        	action = new StyleModifyAction(); // 스타일 수정 처리
-        } else if (page.equals("follower")) {
-        	action = new FollowerAction(); // 팔로워 처리
-        } else if (page.equals("following")) {
-        	action = new FollowingAction(); // 팔로잉 처리	
-        } else if (page.equals("popular")) {
-            action = new ProductPopularAction(); // 인기상품 페이지 처리
-        } else if (page.equals("productDetail")) {
+            action = new StyleProfileAction(); // 스타일 프로필 처리
+			/*
+			 * } else if (page.equals("event")) { action = new EventAction(); // 이벤트 페이지 처리
+			 * } else if (page.equals("popular")) { action = new PopularAction(); // 인기상품
+			 * 페이지 처리
+			 */        } else if (page.equals("productDetail")) {
             action = new ProductDetailAction(); // 상품 디테일 페이지 처리
         } else if (page.equals("event1")) {
             url = "/views/event/event1.jsp"; // Event1 페이지 처리
         } else if (page.equals("event2")) {
             url = "/views/event/event2.jsp"; // Event2 페이지 처리
-        } else if (page.equals("notice")) {
-            action = new NoticeAction(); // 공지사항 목록 페이지 처리
-        } else if (page.equals("noticeWrite")) {
-            url = "/views/notice/noticeWrite.jsp"; // 작성 페이지 이동
-        } else if (page.equals("noticeEdit")) {
-        	action = new NoticeEditAction();
-        } else if (page.equals("noticeDetail")) {
-        	action = new NoticeDetailAction();
-        } else if (page.equals("noticeDelete")) {
-            action = new NoticeDeleteAction(); // 공지사항 삭제 페이지 처리
         } else if (page.equals("faq")) {
-        	action = new FaqAction(); // 자주묻는질문(FAQ) 페이지 처리
-        } else if (page.equals("search")) {
-            action = new SearchAction(); // 검색 요청 처리
-        } else if (page.equals("viewProfileInfo")) {
-            action = new MyProfileInfoViewAction(); // 프로필 정보 조회
-        } else if (page.equals("mypage")) {
-            if (isUserLoggedIn(req)) {
-                action = new MypageAction(); // 마이 페이지 처리
-            } else {
-                url = "/views/login/login.jsp"; // 로그인 페이지로 리다이렉트
-            }
-        } else if (page.equals("purchaseHistory")) {
-            // 구매내역 조회는 로그인한 사용자만 볼 수 있다고 가정
-            if (isUserLoggedIn(req)) {
-                action = new PurchaseHistoryAction(); // 구매내역 페이지 처리
-            } else {
-                url = "/views/login/login.jsp"; // 로그인 페이지로 리다이렉트
-            }
-        } else if (page.equals("salesHistory")) {
-            if (isUserLoggedIn(req)) {
-                action = new SalesHistoryAction(); // 판매내역 페이지 처리
-            } else {
-                url = "/views/login/login.jsp";
-            }     
-        } else if (page.equals("purchaseHistoryDetail")) {
-            if (isUserLoggedIn(req)) {
-                action = new PurchaseHistoryDetailAction(); // 구매내역 상세 페이지 처리
-            } else {
-                url = "/views/login/login.jsp";
-            }
-        } else if (page.equals("salesHistoryDetail")) {
-            if (isUserLoggedIn(req)) {
-                action = new SalesHistoryDetailAction(); // 판매내역 상세 페이지 처리
-            } else {
-                url = "/views/login/login.jsp";
-            }
-        } else if (page.equals("filter")) {
-            resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "GET 요청은 허용되지 않습니다.");
-            return;
-        } else if (page.equals("findEmail")) {
-            action = new FindEmailAction(); // 이메일 찾기 페이지 처리
-        } else if (page.equals("findPw")) {
-            action = new FindPwAction(); // 비밀번호 찾기 페이지 처리
-        } else if (page.equals("userAccount")) {
-        	action = new UserAccountSAction();// 판매 정산 계좌 이동(조회 후 세션에 저장)
-        } else if (page.equals("profileInfo")) {
-            url = "/views/mypage/profileInfo.jsp"; // 프로필 관리 계좌 이동
-        } else if (page.equals("loginInfo")) {
-        	action = new LoginInfoSAction(); // 로그인 정보 이동(조회 후 세션에 저장)
-        } else if (page.equals("confirmPw")) {
-            url = "/views/login/login.jsp"; // 비밀번호 찾기 후 로그인페이지 이동
+            action = new FaqAction(); // 자주묻는질문(FAQ) 페이지 처리
+        } else if (page.equals("buyBid")) {
+            action = new BuyBidpriceAction(); // 구매 입찰 페이지 처리
+        } else if (page.equals("buy")) {
+            action = new BuyAction(); // 구매 페이지 처리
+        } else if (page.equals("buyConfirm")) {
+            action = new BuyConfirmAction(); // 결제 완료 페이지 처리
+        } else if (page.equals("sellBid")) {
+            action = new SellBidpriceAction(); // 판매 입찰 페이지 처리
+        } else if (page.equals("sell")) {
+            action = new SellAction(); // 판매 페이지 처리
+        } else if (page.equals("sellConfirm")) {
+            action = new SellConfirmAction(); // 판매 완료 페이지 처리
+        } else if (page.equals("addressBook")) {
+            action = new AddressBookAction(); // 주소록 페이지 처리
         } else {
             url = "/views/error/404.jsp"; // 에러 페이지 처리
         }
@@ -152,20 +109,19 @@ public class JellyController extends HttpServlet {
         // Action 실행
         if (action != null) {
             url = action.execute(req, resp);
-
-            // 리다이렉션 처리
-            if (url != null && url.startsWith("redirect:")) {
-                resp.sendRedirect(url.substring("redirect:".length()));
-                return;
-            }
         }
 
         // 페이지 이동
         if (url != null && !resp.isCommitted()) {
-            RequestDispatcher rd = req.getRequestDispatcher(url);
-            rd.forward(req, resp);
+            if (url.startsWith("redirect:")) {
+                resp.sendRedirect(url.substring("redirect:".length()));
+            } else {
+                RequestDispatcher rd = req.getRequestDispatcher(url);
+                rd.forward(req, resp);
+            }
         }
     }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -237,8 +193,8 @@ public class JellyController extends HttpServlet {
         }
     }
 
-    // 유저 로그인 상태 확인 메서드
-    private boolean isUserLoggedIn(HttpServletRequest req) {
-        return req.getSession().getAttribute("user") != null;
-    }
+	// 유저 로그인 상태 확인 메서드
+	private boolean isUserLoggedIn(HttpServletRequest req) {
+		return req.getSession().getAttribute("user") != null;
+	}
 }

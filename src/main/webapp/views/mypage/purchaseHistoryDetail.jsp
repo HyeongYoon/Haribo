@@ -181,7 +181,7 @@
             </div>
             <div class="product-buttons">
                 <button onclick="location.href='${pageContext.request.contextPath}/jelly?page=productDetail&productId=${detailVO.productId}'">상품 상세</button>
-                <button>스타일 올리기</button>
+                <button onclick="location.href='http://localhost:8080/haribo/upload?page=stylePost'">스타일올리기</button>
             </div>
         </div>
 

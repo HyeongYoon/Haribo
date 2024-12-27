@@ -100,6 +100,37 @@ public class UserAccountDAO {
         }
     	return user;
     }
+ // userId로 사용자 기본 account 정보 조회
+    public UserAccountVO selectIsDefaultAccountByUserId(int userId) {
+        UserAccountVO vo = null;
+        sb.setLength(0);
+        sb.append("SELECT account_id, user_id, bank_name, account_number, account_holder, is_default, created_at, updated_at FROM USER_ACCOUNT WHERE user_id = ? and is_default = 1");
+
+        try {
+            pstmt = conn.prepareStatement(sb.toString());
+            pstmt.setInt(1, userId);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+            vo = new UserAccountVO(
+                    rs.getInt("account_id"),
+                    rs.getInt("user_id"),
+                    rs.getString("bank_name"),
+                    rs.getString("account_number"),
+                    rs.getString("account_holder"),
+                    rs.getBoolean("is_default"),
+                    rs.getString("created_at"),
+                    rs.getString("updated_at")
+                    );
+
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return vo;
+    }
     
     // 자원 해제
     private void close() {
