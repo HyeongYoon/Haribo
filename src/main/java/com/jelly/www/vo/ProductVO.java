@@ -31,6 +31,9 @@ public class ProductVO {
     
     private String formattedPrice;      // 포맷팅 처리된 가격
 
+
+
+    // 전체
     public ProductVO(int productId, String productName, String description, String brand, Date releaseDate, int initialPrice,
                      String modelNumber, int categoryId, String imageUrl, boolean isActive, Date createdAt, Date updatedAt) {
         this.productId = productId;

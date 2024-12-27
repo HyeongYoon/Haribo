@@ -32,6 +32,7 @@ public class ShoesAction implements Action {
         ProductDAO productDAO = new ProductDAO();
         List<ProductVO> productList = productDAO.selectByCategoryAndPage("신발", pageNo, limit);
 
+
         // 구매 평균가 조회
         ProductSellerDAO productSellerDAO = new ProductSellerDAO();
         Map<Integer, Integer> averagePurchasePriceMap = new HashMap<>();

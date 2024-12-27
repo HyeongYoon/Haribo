@@ -558,6 +558,132 @@ public class ProductDAO {
         return formatted.toString();
     }
     
+    
+    
+    // 검색어 관련 메서드
+    public List<ProductVO> searchProducts(String query) {
+        List<ProductVO> list = new ArrayList<>();
+        sb.setLength(0);
+        sb.append("SELECT PRODUCT_ID, PRODUCT_NAME, DESCRIPTION, BRAND, RELEASE_DATE, INITIAL_PRICE, ");
+        sb.append("MODEL_NUMBER, CATEGORY_ID, IMAGE_URL, IS_ACTIVE, CREATED_AT, UPDATED_AT ");
+        sb.append("FROM PRODUCT WHERE PRODUCT_NAME LIKE ? OR MODEL_NUMBER LIKE ? OR BRAND LIKE ?");
+
+        try {
+            pstmt = conn.prepareStatement(sb.toString());
+            String searchKeyword = "%" + query + "%";
+            pstmt.setString(1, searchKeyword);
+            pstmt.setString(2, searchKeyword);
+            pstmt.setString(3, searchKeyword);
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                ProductVO vo = new ProductVO(
+                    rs.getInt("PRODUCT_ID"),
+                    rs.getString("PRODUCT_NAME"),
+                    rs.getString("DESCRIPTION"),
+                    rs.getString("BRAND"),
+                    rs.getDate("RELEASE_DATE"),
+                    rs.getInt("INITIAL_PRICE"),
+                    rs.getString("MODEL_NUMBER"),
+                    rs.getInt("CATEGORY_ID"),
+                    rs.getString("IMAGE_URL"),
+                    rs.getBoolean("IS_ACTIVE"),
+                    rs.getDate("CREATED_AT"),
+                    rs.getDate("UPDATED_AT")
+                );
+                list.add(vo);
+                System.out.println("검색된 상품: " + vo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return list;
+    }
+    
+    // 판매량이 높은 상품 조회 메서드 (Popular에서 사용)
+    public List<ProductVO> getPopularProducts() {
+        List<ProductVO> productList = new ArrayList<>();
+        sb.setLength(0);
+        sb.append("SELECT ");
+        sb.append("p.product_id, ");
+        sb.append("p.product_name, ");
+        sb.append("p.brand, ");
+        sb.append("p.initial_price, ");
+        sb.append("p.image_url, ");
+        sb.append("COUNT(t.trade_id) AS total_sales ");
+        sb.append("FROM PRODUCT p ");
+        sb.append("JOIN PRODUCT_SELLER ps ON p.product_id = ps.product_id ");
+        sb.append("JOIN TRADE t ON t.product_seller_id = ps.product_seller_id ");
+        sb.append("WHERE p.is_active = TRUE ");
+        sb.append("GROUP BY p.product_id, p.product_name, p.brand, p.initial_price, p.image_url ");
+        sb.append("ORDER BY total_sales DESC, p.created_at DESC ");
+        sb.append("LIMIT 10");
+
+        try {
+            pstmt = conn.prepareStatement(sb.toString());
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                ProductVO product = new ProductVO(
+                    rs.getInt("product_id"),
+                    rs.getString("product_name"),
+                    rs.getString("brand"),
+                    rs.getInt("initial_price"),
+                    rs.getString("image_url"),
+                    rs.getInt("total_sales")
+                );
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return productList;
+    }
+
+    // 모델 번호 포맷팅 메서드
+    public String getFormattedModelNumber(int productId) {
+        String modelNumber = null;
+        sb.setLength(0);
+        sb.append("SELECT MODEL_NUMBER FROM PRODUCT WHERE PRODUCT_ID = ?");
+
+        try {
+            pstmt = conn.prepareStatement(sb.toString());
+            pstmt.setInt(1, productId);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                modelNumber = rs.getString("MODEL_NUMBER");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+
+        // 모델 번호 포맷팅
+        if (modelNumber != null) {
+            modelNumber = formatModelNumber(modelNumber);
+        }
+        return modelNumber;
+    }
+
+    // 모델 번호를 8자리마다 줄바꿈 처리
+    private String formatModelNumber(String modelNumber) {
+        StringBuilder formatted = new StringBuilder();
+        for (int i = 0; i < modelNumber.length(); i++) {
+            formatted.append(modelNumber.charAt(i));
+            if ((i + 1) % 8 == 0 && i != modelNumber.length() - 1) {
+                formatted.append("<br>");
+            }
+        }
+        return formatted.toString();
+    }
+    
     // 자원 해제 메서드
     public void close() {
         try {

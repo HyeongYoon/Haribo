@@ -1,11 +1,16 @@
 package com.jelly.www.dao;
 
 import java.sql.*;
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.jelly.www.vo.AddressVO;
+import com.jelly.www.vo.UserAccountVO;
 import com.jelly.www.vo.UserVO;
+
 
 public class UserDAO {
     private String driver = "com.mysql.cj.jdbc.Driver";
@@ -227,6 +232,7 @@ public class UserDAO {
         sb.setLength(0);
         sb.append("SELECT * FROM USER WHERE email = ? AND password = ?");
 
+       
         try {
             pstmt = conn.prepareStatement(sb.toString());
             pstmt.setString(1, email);
@@ -280,7 +286,7 @@ public class UserDAO {
         
         return false; // 중복이 없으면 false 
     }
-    
+
 
 	// 팔로우 증가 메서드
 	public void plusFollow(int followerId, int followingId) {
@@ -491,7 +497,7 @@ public class UserDAO {
 
         return user;
     }
-    
+
     // 자원 해제
     public void close() {
         try {
