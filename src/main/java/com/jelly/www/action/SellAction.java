@@ -44,25 +44,21 @@ public class SellAction implements Action {
 			// userId로 주소 정보 조회
 			AddressDAO addressDAO = new AddressDAO();
 			AddressVO defaultAddress = addressDAO.selectDefaultAddressOne(userId); // 사용자의 기본주소
-			List<AddressVO> address = addressDAO.selectAddressAll(userId); // 사용자의 전체 주소 조
+			List<AddressVO> address = addressDAO.selectAddressAllExceptDefault(userId); // 사용자의 전체 주소 조
 
 			// userAccount VO 가져오기
 			UserAccountDAO accountDAO = new UserAccountDAO();
 			UserAccountVO defaultAccount = accountDAO.selectIsDefaultAccountByUserId(userId);
 
-			// 가격 포맷팅
-			DecimalFormat df = new DecimalFormat("#,###");
-			String formattedPrice = df.format(price);
-
 			// 상품정보, 사용자정보, 주소정보, 가격, 사이즈를 요청객체에 전달
-			request.setAttribute("product", product); // 상품 정
+			request.setAttribute("product", product); // 상품 정보
 			request.setAttribute("user", user); // 사용자 정보
 			request.setAttribute("defaultAccount", defaultAccount); // 사용자의 기본 계좌 정보
 			request.setAttribute("defaultAddress", defaultAddress); // 사용자의 기본주소 정보
 			request.setAttribute("address", address); // 사용자의 전체 주소 정보
 			request.setAttribute("price", price); // 구매 입찰가
-			request.setAttribute("formattedPrice", formattedPrice); // 포맷팅 처리된 가격
 			request.setAttribute("size", size);
+			request.setAttribute("sellCharge", 8500); // 수수료
 
 		}
 		return "/views/order/sell.jsp";

@@ -59,14 +59,15 @@ public class InsertSellData extends HttpServlet {
 			// 상품 아이디, 사이즈, 판매자가 입력한 금액 / 즉시 판매가와 가격이 동일한 구매자 찾기 
 			ProductBuyerDAO productBuyerDAO = new ProductBuyerDAO();
 			ProductBuyerVO productBuyer = productBuyerDAO.selectBuyerIdOne(productId, size, price);
-			int productBuyerId = productBuyer.getBuyerId();
 			
 			// 그런 구매자가 있다면
-			if (productBuyerId != 0) {
+			if (productBuyer != null) {
+				int productBuyerId = productBuyer.getBuyerId();
+				
 				trade = TradeVO.builder()
-					.tradeId(tradeId)
+					.orderNo(tradeId)
 					.productSellerId(userId) 
-					.buyerId(userId)
+					.buyerId(productBuyerId)
 					.addressId(defaultAddressId)
 					.couponId(1) //  쿠폰도 우선 1 로 함 (제약조건은 없앴으나 )
 					.totalPrice(totalPrice)
@@ -74,7 +75,7 @@ public class InsertSellData extends HttpServlet {
 					.build();
 			} else { // 그런 구매자가 없다면
 				trade = TradeVO.builder()
-						.tradeId(tradeId)
+						.orderNo(tradeId)
 						.productSellerId(userId) 
 						.addressId(defaultAddressId)
 						.couponId(1) //  쿠폰도 우선 1 로 함 (제약조건은 없앴으나 )

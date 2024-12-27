@@ -45,10 +45,19 @@ public class TradeDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				TradeVO trade = new TradeVO(rs.getInt("trade_id"), rs.getInt("product_seller_id"),
-						rs.getInt("buyer_id"), rs.getInt("address_id"), rs.getInt("coupon_id"),
-						rs.getInt("total_price"), rs.getInt("trade_status"), rs.getTimestamp("trade_date"),
-						rs.getTimestamp("completed_at"), rs.getTimestamp("created_at"), rs.getTimestamp("updated_at"));
+				TradeVO trade = new TradeVO(
+						rs.getInt("trade_id"), 
+						rs.getInt("product_seller_id"),
+						rs.getInt("buyer_id"), 
+						rs.getInt("address_id"), 
+						rs.getInt("coupon_id"),
+						rs.getInt("total_price"), 
+						rs.getInt("trade_status"), 
+						rs.getTimestamp("trade_date"),
+						rs.getTimestamp("completed_at"),
+						rs.getTimestamp("created_at"), 
+						rs.getTimestamp("updated_at"),
+						rs.getInt("order_no"));
 				tradeList.add(trade);
 			}
 		} catch (SQLException e) {
@@ -69,10 +78,19 @@ public class TradeDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				TradeVO trade = new TradeVO(rs.getInt("trade_id"), rs.getInt("product_seller_id"),
-						rs.getInt("buyer_id"), rs.getInt("address_id"), rs.getInt("coupon_id"),
-						rs.getInt("total_price"), rs.getInt("trade_status"), rs.getTimestamp("trade_date"),
-						rs.getTimestamp("completed_at"), rs.getTimestamp("created_at"), rs.getTimestamp("updated_at"));
+				TradeVO trade = new TradeVO(
+						rs.getInt("trade_id"), 
+						rs.getInt("product_seller_id"),
+						rs.getInt("buyer_id"), 
+						rs.getInt("address_id"), 
+						rs.getInt("coupon_id"),
+						rs.getInt("total_price"), 
+						rs.getInt("trade_status"), 
+						rs.getTimestamp("trade_date"),
+						rs.getTimestamp("completed_at"), 
+						rs.getTimestamp("created_at"), 
+						rs.getTimestamp("updated_at"),
+						rs.getInt("order_no"));
 				tradeList.add(trade);
 			}
 		} catch (SQLException e) {
@@ -82,22 +100,31 @@ public class TradeDAO {
 	}
 
 	// 2. 구매 주문 정보 1건 조회 (구매자 아이디와 주문번호로 조회)
-	public TradeVO selectBuyOne(int userId, int tradeId) {
+	public TradeVO selectBuyOne(int userId, int orderNo) {
 		TradeVO trade = null;
 		sb.setLength(0);
-		sb.append("SELECT * FROM TRADE WHERE buyer_id = ? AND trade_id=?");
+		sb.append("SELECT * FROM TRADE WHERE buyer_id = ? AND order_no = ?");
 
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setInt(1, userId);
-			pstmt.setInt(2, tradeId);
+			pstmt.setInt(2, orderNo);
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) {
-				trade = new TradeVO(rs.getInt("trade_id"), rs.getInt("product_seller_id"), rs.getInt("buyer_id"),
-						rs.getInt("address_id"), rs.getInt("coupon_id"), rs.getInt("total_price"),
-						rs.getInt("trade_status"), rs.getTimestamp("trade_date"), rs.getTimestamp("completed_at"),
-						rs.getTimestamp("created_at"), rs.getTimestamp("updated_at"));
+			while (rs.next()) {
+				trade = new TradeVO(
+						rs.getInt("trade_id"), 
+						rs.getInt("product_seller_id"), 
+						rs.getInt("buyer_id"),
+						rs.getInt("address_id"), 
+						rs.getInt("coupon_id"), 
+						rs.getInt("total_price"),
+						rs.getInt("trade_status"), 
+						rs.getTimestamp("trade_date"), 
+						rs.getTimestamp("completed_at"),
+						rs.getTimestamp("created_at"), 
+						rs.getTimestamp("updated_at"),
+						rs.getInt("order_no"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -106,7 +133,7 @@ public class TradeDAO {
 	}
 
 	// 2-2. 판매 주문 정보 1건 조회 (구매자 아이디와 주문번호로 조회)
-	public TradeVO selectSellOne(int userId, int tradeId) {
+	public TradeVO selectSellOne(int userId, int orderNo) {
 		TradeVO trade = null;
 		sb.setLength(0);
 		sb.append("SELECT * FROM TRADE WHERE buyer_id = ? AND trade_id=?");
@@ -114,14 +141,23 @@ public class TradeDAO {
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setInt(1, userId);
-			pstmt.setInt(2, tradeId);
+			pstmt.setInt(2, orderNo);
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) {
-				trade = new TradeVO(rs.getInt("trade_id"), rs.getInt("product_seller_id"), rs.getInt("buyer_id"),
-						rs.getInt("address_id"), rs.getInt("coupon_id"), rs.getInt("total_price"),
-						rs.getInt("trade_status"), rs.getTimestamp("trade_date"), rs.getTimestamp("completed_at"),
-						rs.getTimestamp("created_at"), rs.getTimestamp("updated_at"));
+			while (rs.next()) {
+				trade = new TradeVO(
+						rs.getInt("trade_id"), 
+						rs.getInt("product_seller_id"), 
+						rs.getInt("buyer_id"),
+						rs.getInt("address_id"), 
+						rs.getInt("coupon_id"), 
+						rs.getInt("total_price"),
+						rs.getInt("trade_status"), 
+						rs.getTimestamp("trade_date"), 
+						rs.getTimestamp("completed_at"),
+						rs.getTimestamp("created_at"), 
+						rs.getTimestamp("updated_at"),
+						rs.getInt("order_no"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -130,23 +166,47 @@ public class TradeDAO {
 		return trade;
 	}
 
+	// trade_id 조회
+	public TradeVO selectTradeId(int orderNo) {
+		TradeVO vo = null ;
+		sb.setLength(0);
+		sb.append("SELECT trade_id FROM TRADE WHERE order_no = ?");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, orderNo);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new TradeVO(
+				rs.getInt("trade_id"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return vo;
+	}
 	// 구매한 상품 insert
-	public int insertBuyOne(TradeVO trade) {
+	public int insertBuyOne(TradeVO vo) {
 		
 		sb.setLength(0);
 		sb.append(
-				"INSERT INTO TRADE VALUES (?, ?, ?, ?, ?, ?, ?,  NOW(), NOw(), NOW(), NOW())");
+				"INSERT INTO TRADE (order_no, product_seller_id, product_buyer_id, address_id, coupon_id, total_price, trade_status) VALUES (?, ?, ?, ?, ?, ?, ?)");
 		int result = 0;
 
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
-			pstmt.setInt(1, trade.getTradeId());
-			pstmt.setInt(2, trade.getProductSellerId());
-			pstmt.setInt(3, trade.getBuyerId());
-			pstmt.setInt(4, trade.getAddressId());
-			pstmt.setInt(5, trade.getCouponId());
-			pstmt.setInt(6, trade.getTotalPrice());
-			pstmt.setInt(7, trade.getTradeStatus());
+			pstmt.setInt(1, vo.getOrderNo());
+			pstmt.setInt(2, vo.getProductSellerId());
+			pstmt.setInt(3, vo.getBuyerId());
+			pstmt.setInt(4, vo.getAddressId());
+			pstmt.setInt(5, vo.getCouponId());
+			pstmt.setInt(6, vo.getTotalPrice());
+			pstmt.setInt(7, vo.getTradeStatus());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -157,14 +217,14 @@ public class TradeDAO {
 	}
 	
 	// 구매한 상품 PAYMENT테이블에 insert
-	public int insertPayment(int tradeId, String paymentMethod, int totalPrice) {
+	public int insertPayment(int orderNo, String paymentMethod, int totalPrice) {
 		sb.setLength(0);
 		sb.append("INSERT INTO PAYMENT (trade_id, payment_method, amount) VALUES (?, ?, ?)");
 		int result = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
-			pstmt.setInt(1, tradeId);
+			pstmt.setInt(1, orderNo);
 			pstmt.setString(2, paymentMethod);
 			pstmt.setInt(3, totalPrice);
 			

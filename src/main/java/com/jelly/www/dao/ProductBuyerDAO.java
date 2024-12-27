@@ -59,7 +59,7 @@ public class ProductBuyerDAO {
     }
     
  // 구매자 조회 (사이즈, 가격, 상품id가 맞는 사람)
- 	public ProductBuyerVO selectBuyerIdOne(int productId, String size, int price) {
+ 	public ProductBuyerVO selectBuyerIdOne(int productId, String size, int bidMoney) {
  		ProductBuyerVO vo = null;
  		sb.setLength(0);
  		sb.append("SELECT product_buyer_id FROM PRODUCT_BUYER ");
@@ -69,7 +69,7 @@ public class ProductBuyerDAO {
  			pstmt = conn.prepareStatement(sb.toString());
  			pstmt.setInt(1, productId);
  			pstmt.setString(2, size);
- 			pstmt.setInt(3, price);
+ 			pstmt.setInt(3, bidMoney);
  			rs = pstmt.executeQuery();
 
  			if (rs.next()) {
