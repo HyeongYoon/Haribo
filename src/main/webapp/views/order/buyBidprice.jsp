@@ -91,6 +91,7 @@ $(() => {
 	      success: (response) => {
 	        console.log("입력한 가격 전송 완료");
 	        console.log(JSON.stringify(response));
+	        
 	        if (inputPrice > 20000) {
 	        	$("#alertMessage").html("");
 	        	$("#totalAmount").text(response+"원");

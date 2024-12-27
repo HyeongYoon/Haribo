@@ -1,10 +1,10 @@
 package com.jelly.www.action;
 
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import com.jelly.www.dao.AddressDAO;
 import com.jelly.www.dao.ProductBuyerDAO;
-import com.jelly.www.dao.ProductDAO;
 import com.jelly.www.dao.ProductSellerDAO;
 import com.jelly.www.dao.TradeDAO;
 import com.jelly.www.dao.UserCouponDAO;
@@ -160,7 +160,11 @@ public class InsertBuyData extends HttpServlet {
 				tradeDAO.insertPayment(tradeId, paymentMethod, totalPrice);
 
 				// PRODUCT_BUYER 테이블에 데이터 삽입
+//				try {
 				new ProductBuyerDAO().insertBuyerData(new ProductBuyerVO(productId, userId, size, price));
+//				}catch(SQLIntegrityConstraintViolationException e) { // 사용자가 같은상품을 여러번 결제할 수 없음 ... 
+//					
+//				} // 데이터 무결성 조건 위반시 나타낼 경고 메세지를 어떻게 ..
 				
 				// 사용한 쿠폰으로 처리
 				new UserCouponDAO().updateUsedCoupon(new UserCouponVO().builder().userId(userId).couponId(couponId).build());

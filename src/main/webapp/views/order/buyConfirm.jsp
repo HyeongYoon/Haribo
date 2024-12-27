@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="/views/home/subHeader.jsp" />
 <!DOCTYPE html>
 <html lang="en">
@@ -34,10 +35,12 @@
 							<span>배송비</span> <span><fmt:formatNumber value="${deliveryFee}"
 									type="number" />원</span>
 						</div>
+							<c:if test="${not empty discount }">
 						<div>
-							<span>쿠폰</span> <span><fmt:formatNumber
-									value="${discountPrice }" type="number" />원</span>
+							<span>쿠폰</span> 
+							<span><fmt:formatNumber value="${discountPrice }" type="number" />원</span>
 						</div>
+						</c:if>
 					</div>
 					<div class="total-price">
 						<span>총 결제금액</span> <span>${formattedPrice}원</span>

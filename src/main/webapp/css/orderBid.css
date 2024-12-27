@@ -176,12 +176,15 @@ input[type="text"]:focus {
 .delivery-info {
   display: flex;
   flex-direction: column;
+  padding-bottom: 22px;
 }
 
 .delivery-info div {
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
+  font-size: 13px;
+  
 }
 
 /* ***************************

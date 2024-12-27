@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
 <jsp:include page="/views/home/subHeader.jsp" />
 
 <!DOCTYPE html>
@@ -33,7 +35,7 @@
 			<!-- 가격 정보 섹션 -->
 			<div class="price-detail">
 				<div class="orderNow">
-					<div>
+				<div>
 						<c:choose>
 							<c:when test="${price != 0}">
 								<span class="span-bold">즉시 구매가</span>
@@ -44,9 +46,11 @@
 								<span>-</span>
 							</c:otherwise>
 						</c:choose>
+					</div>
 					<div>
 						<span class="span-bold">즉시 판매가</span> <span>-</span>
 					</div>
+					
 				</div>
 			</div>
 			<!-- 판매 희망가 입력 -->
@@ -97,7 +101,8 @@ $(() => {
 	      },
 	      success: function (response, status, request) {
 	        console.log("입력한 가격 전송 완료");
-	        if (response >= 20000) {
+	        console.log(inputPrice)
+	        if (inputPrice >= 20000) {
 	        	$("#alertMessage").html("");
 	        	$("#totalAmount").text(response+"원");
 	        	

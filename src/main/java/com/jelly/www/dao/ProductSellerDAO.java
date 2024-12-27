@@ -155,7 +155,7 @@ public class ProductSellerDAO {
 	// 판매정보 추가
 	    public int insertSellerData(ProductSellerVO vo) {
 	    	sb.setLength(0);
-	    	sb.append("INSERT INTO PRODUCT_SELLER (product_id, seller_id, size, price, stock) VALUES (?, ?, ?, ?, 1 ))");
+	    	sb.append("INSERT INTO PRODUCT_SELLER (product_id, seller_id, size, price, stock) VALUES (?, ?, ?, ?, 1 )");
 	    	int result = 0;
 	    	try {
 				pstmt = conn.prepareStatement(sb.toString());

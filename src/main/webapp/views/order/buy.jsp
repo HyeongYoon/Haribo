@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>buyModify.html</title>
+<title>Jelly</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/buy.css">
 <!-- 포트원 결제 -->
 <script src="https://cdn.portone.io/v2/browser-sdk.js" async defer></script>
@@ -518,7 +518,7 @@ $(".couponInfo").on("click",function(e){
 		    },
 		    success: function(response) {
 		        console.log("결제 성공");
-		        window.location.href = "${pageContext.request.contextPath}/jelly?page=buyConfirm&productId=${product.productId}&price=${totalPrice}&couponId=${selectCouponId}";  // 결제 완료 페이지로 이동
+		        window.location.href = "${pageContext.request.contextPath}/jelly?page=buyConfirm&productId=${product.productId}&price=${totalPrice}&discountPrice=${discountPrice }";  // 결제 완료 페이지로 이동
 		    },
 		    error: function(xhr, status, error) { // 함수 형태로 수정
 		        console.log("결제 실패:", error);

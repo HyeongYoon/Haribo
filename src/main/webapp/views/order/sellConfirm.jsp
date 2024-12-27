@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="/views/home/subHeader.jsp" />
 <!DOCTYPE html>
 <html lang="en">
@@ -32,13 +32,15 @@
 					<div class="price-detail">
 						<div>
 							<span style="color: black">즉시 판매가</span> <span
-								style="color: black">${product.initialPrice }원</span>
+								style="color: black"><fmt:formatNumber
+							value="${price }" type="number" />원</span>
 						</div>
 						<div>
 							<span>검수비</span> <span>무료</span>
 						</div>
 						<div>
-							<span>수수료</span> <span>-10,000원</span>
+							<span>수수료</span> <span><fmt:formatNumber
+							value="${ sellCharge }" type="number" />원</span>
 						</div>
 						<div>
 							<span>배송비</span> <span>선불, 판매자 부담</span>
@@ -62,7 +64,7 @@
 				</div>
 
 				<div class="total-price">
-					<span>정산금액</span> <span>${product.initialPrice - 5000 }원</span>
+					<span>정산금액</span> <span>${price + sellCharge }원</span>
 				</div>
 			</div>
 		</div>
