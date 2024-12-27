@@ -15,7 +15,7 @@ public class SizeVO {
     private int price;           // 사이즈별 가격
     private Timestamp createdAt; // 생성 	날짜
     private Timestamp updatedAt; // 수정 날짜
-}
+
     // 사이즈 ID 조회용
     public SizeVO(int sizeId) {
     	this.sizeId = sizeId;

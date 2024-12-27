@@ -2,20 +2,20 @@ package com.jelly.www.vo;
 
 import java.sql.Timestamp;
 
->>>>>>> origin/feature/buySell
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor 
 public class UserAccountVO {
-	int accountId;
-	int userId;
-	String bankName; // 은행 이름
-	String accountNumber; // 계좌번호
-	String accountHolder; // 계좌주명
-	Boolean isDefault; // 기본 계좌 여부 
-	Timestamp createdAt; // 생성일
+	private int accountId; // 계좌 고유 ID
+    private int userId; // 사용자 ID
+    private String bankName; // 은행 이름
+    private String accountNumber; // 계좌 번호
+    private String accountHolder; // 계좌 주명
+    private boolean isDefault; // 기본 계좌 여부
+    private String createdAt; // 생성 날짜
+    private String updatedAt; // 수정 날짜
 }

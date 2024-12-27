@@ -76,11 +76,11 @@ public class JellyController extends HttpServlet {
             action = new StyleListAction(); // 스타일 리스트 페이지 처리
         } else if (page.equals("styleProfile")) {
             action = new StyleProfileAction(); // 스타일 프로필 처리
-        } else if (page.equals("event")) {
-            action = new EventAction(); // 이벤트 페이지 처리
-        } else if (page.equals("popular")) {
-            action = new PopularAction(); // 인기상품 페이지 처리
-        } else if (page.equals("productDetail")) {
+			/*
+			 * } else if (page.equals("event")) { action = new EventAction(); // 이벤트 페이지 처리
+			 * } else if (page.equals("popular")) { action = new PopularAction(); // 인기상품
+			 * 페이지 처리
+			 */        } else if (page.equals("productDetail")) {
             action = new ProductDetailAction(); // 상품 디테일 페이지 처리
         } else if (page.equals("event1")) {
             url = "/views/event/event1.jsp"; // Event1 페이지 처리
@@ -122,11 +122,6 @@ public class JellyController extends HttpServlet {
         }
     }
 
-    private boolean isUserLoggedIn(HttpServletRequest req) {
-        // 로그인 여부 확인 (임의로 세션에서 user 속성 검사)
-        return req.getSession().getAttribute("user") != null;
-    }
-}
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

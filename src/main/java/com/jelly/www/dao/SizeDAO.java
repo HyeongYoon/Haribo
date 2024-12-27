@@ -1,18 +1,10 @@
 package com.jelly.www.dao;
 
 import java.sql.*;
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
-
-=======
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jelly.www.vo.SizeVO;
 
->>>>>>> origin/feature/buySell
 public class SizeDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/jelly";
