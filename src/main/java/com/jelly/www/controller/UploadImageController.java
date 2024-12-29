@@ -180,7 +180,9 @@ public class UploadImageController extends HttpServlet {
                     	imageVO.setPostImageOrder(seq);
                     	imageVO.setPostImageUrl(fileURL);
                     	imageDAO.insertOne(imageVO);
-                    	url = "/views/style/styleList.jsp";
+                    	// Set the redirection URL
+                    	url = request.getContextPath() + "/jelly?page=styleList";
+
                     	
                     }
 
@@ -202,16 +204,11 @@ public class UploadImageController extends HttpServlet {
         }
         
         
-        
-        if (url != null && url.startsWith("redirect:")) {
-            response.sendRedirect(url.substring("redirect:".length()));
+        if (url != null && url.startsWith(request.getContextPath())) {
+            response.sendRedirect(url); 
             return;
         }
-	    // 페이지 이동
-	    if (url != null && !response.isCommitted()) {
-	        RequestDispatcher rd = request.getRequestDispatcher(url);
-	        rd.forward(request, response);
-	    }
+
     }
     
 	
