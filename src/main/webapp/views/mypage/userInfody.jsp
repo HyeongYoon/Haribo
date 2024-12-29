@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>로그인 정보</title>
    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypageCommon.css" />
-   <link rel="stylesheet" href="<%=request.getContextPath()%>/css/loginInfo.css" />
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/css/userInfo.css" />
   <style type="text/css">
 
 .mypage-container {
