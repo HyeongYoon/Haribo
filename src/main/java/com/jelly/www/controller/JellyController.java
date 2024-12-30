@@ -154,7 +154,9 @@ public class JellyController extends HttpServlet {
             url = "/views/mypage/profileInfo.jsp"; // 프로필 관리 페이지 이동
         } else if (page.equals("loginInfo")) {
             action = new LoginInfoSAction(); // 로그인 정보 이동(조회 후 세션에 저장)
-        } else {
+        } else if (page.equals("rank")) {
+        	action = new RankAction(); // 판매자 등급 조회
+	} else {
             url = "/views/error/404.jsp"; // 에러 페이지 처리
         }
 
