@@ -27,6 +27,11 @@ public class ProductSellerVO {
 		this.productSellerId = productSellerId;
 	}
 	
+	// 판매등급 조회용
+	public ProductSellerVO(int productSellerId, int priceSum) {
+	     this.productSellerId = productSellerId;
+	     this.price = priceSum;
+	}
 	// 판매정보 추가
 	public ProductSellerVO(int productId, int sellerId, String size, int price) {
 		this.productId = productId;
