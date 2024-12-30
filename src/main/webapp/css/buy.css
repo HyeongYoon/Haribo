@@ -3,73 +3,76 @@
    전체 컨테이너 스타일
 *************************** */
 .order-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background-color: #f4f4f4;
-	padding-bottom: 120px;
+	display: flex; /* 자식 요소를 flexbox로 배치 */
+	flex-direction: column; /* 세로 방향 배치 */
+	justify-content: center; /* 세로 가운데 정렬 */
+	align-items: center; /* 가로 가운데 정렬 */
+	background-color: #f4f4f4; /* 배경색(연한 회색) */
+	padding-bottom: 120px
 }
 
-/* 헤더 스타일 */
+/* 헤더 스타일 (배송/결제 제목) */
 .order-container h2 {
-	margin-top: 0;
-	background-color: white;
-	width: 100%;
-	height: 60px;
-	display: flex;
-	justify-content: center;
+	margin-top: 0; /* 위쪽 여백 제거 */
+	background-color: white; /* 배경색(흰색) */
+	width: 100%; /* 화면 전체 너비 */
+	height: 60px; /* 높이 지정 */
+	display: flex; /* 내용물을 flexbox로 배치 */
+	justify-content: center; /* 가로 가운데 정렬 */
 }
 
 /* ***************************
    주문 섹션 공통 스타일
 *************************** */
 .order-content {
-	width: 600px;
-	padding: 20px 15px;
-	margin: 10px 0;
-	background-color: white;
-	border-radius: 10px;
+	width: 600px; /* 섹션의 고정 너비 */
+	padding: 20px 15px; /* 내부 여백 */
+	margin: 10px 0; /* 섹션 간 상하 여백 */
+	background-color: white; /* 섹션 배경색 */
+	border-radius: 10px; /* 모서리를 둥글게 */
 }
 
+/* 섹션 타이틀 스타일 (예: "배송 주소", "결제금액" 등) */
 .order-title {
-	font-size: 16px;
-	font-weight: bold;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	font-size: 16px; /* 글자 크기 */
+	font-weight: bold; /* 글자 굵기 */
+	display: flex; /* 내용물을 flexbox로 배치 */
+	justify-content: space-between; /* 양쪽 끝에 배치 */
+	align-items: center; /* 세로 가운데 정렬 */
 }
 
 /* ***************************
    버튼 스타일
 *************************** */
+/* 계좌 등록 버튼 */
 .account-btn {
-	border: 1px solid #ddd;
-	padding: 10px 15px;
-	border-radius: 10px;
-	margin: 10px 0;
-	background-color: white;
-	color: gray;
-	cursor: pointer;
-	font-size: 13px;
-	width: 100%;
-	text-align: left;
+	border: 1px solid #ddd; /* 연한 회색 테두리 */
+	padding: 10px 15px; /* 내부 여백 */
+	border-radius: 10px; /* 모서리를 둥글게 */
+	margin: 10px 0; /* 위아래 여백 */
+	background-color: white; /* 배경색 */
+	color: gray; /* 글자 색상 */
+	cursor: pointer; /* 마우스 커서가 포인터로 변경 */
+	font-size: 13px; /* 글자 크기 */
+	width: 100%; /* 버튼의 너비를 부모 요소에 맞춤 */
+	text-align: left; /* 글자 정렬을 왼쪽으로 */
 	height: 42px;
 }
 
+/* 결제 버튼 (예: 신용카드, NPay, KakaoPay) */
 .payment-btn {
-	border: 1px solid #ddd;
-	padding: 10px 20px;
-	border-radius: 10px;
-	margin-right: 10px;
-	background-color: white;
-	color: gray;
-	cursor: pointer;
-	font-size: 14px;
-	width: 100%;
+	border: 1px solid #ddd; /* 연한 회색 테두리 */
+	padding: 10px 20px; /* 내부 여백 */
+	border-radius: 10px; /* 모서리를 둥글게 */
+	margin-right: 10px; /* 오른쪽 여백 */
+	background-color: white; /* 배경색 */
+	color: gray; /* 글자 색상 */
+	cursor: pointer; /* 마우스 커서가 포인터로 변경 */
+	font-size: 14px; /* 글자 크기 */
+	width: 100%; /* 버튼의 너비를 부모 요소에 맞춤 */
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: center
 }
 
 .logoimg {
@@ -79,43 +82,46 @@
 }
 
 .payment-btn:focus, .account-btn:focus {
-	border-color: black;
-	outline: none;
+	border-color: black; /* 포커스 시 테두리 색상 검정 */
+	outline: none; /* 기본 아웃라인 제거 */
 }
-
 /* ***************************
    정보 섹션 스타일
 *************************** */
+/* 주문 정보 섹션 */
 .order-info, .coupon-info {
-	align-items: center;
-	margin: 10px 0;
+	align-items: center; /* 세로 가운데 정렬 */
+	margin: 10px 0; /* 위아래 여백 */
 }
 
 .coupon-info {
 	display: flex;
 	flex-direction: column;
 }
-
+/* 주문 세부 정보 (예: 이름, 연락처) */
 .order-subInfo {
-	display: flex;
+	display: flex; /* 내용을 flexbox로 배치 */
 }
 
+/* 상품 이미지 스타일 */
 .productimg {
-	width: 75px;
-	height: 75px;
-	border-radius: 10px;
-	margin-right: 10px;
+	width: 75px; /* 고정 너비 */
+	height: 75px; /* 고정 높이 */
+	border-radius: 10px; /* 이미지 모서리를 둥글게 */
+	margin-right: 10px; /* 오른쪽 여백 */
 }
 
+/* 정보 텍스트 스타일 */
 .order-info span {
-	display: inline-block;
-	padding: 5px;
-	font-size: 13px;
+	display: inline-block; /* 인라인 블록으로 변환 */
+	padding: 5px; /* 내부 여백 */
+	font-size: 13px; /* 글자 크기 */
 }
 
+/* 회색 텍스트 */
 .fontGray {
-	color: gray;
-	margin-right: 30px;
+	color: gray; /* 회색 글자 */
+	margin-right: 30px; /* 오른쪽 여백 */
 }
 
 .paymentSubinfo {
@@ -130,34 +136,38 @@
 /* ***************************
    결제 금액 섹션 스타일
 *************************** */
+/* 결제 금액 섹션 */
 .order-price {
-	width: 100%;
+	width: 100%; /* 부모 요소에 맞춘 너비 */
 }
 
+/* 결제 금액 상세 내역 */
 .price-detail {
-	width: 100%;
-	margin: 10px 0;
-	font-size: 14px;
-	color: gray;
+	width: 100%; /* 부모 요소에 맞춘 너비 */
+	margin: 10px 0; /* 위아래 여백 */
+	font-size: 14px; /* 글자 크기 */
+	color: gray; /* 회색 글자 */
 }
 
+/* 금액 내역 줄 스타일 */
 .price-detail div {
-	display: flex;
-	justify-content: space-between;
-	padding: 5px 0;
-	width: 100%;
+	display: flex; /* 내용을 flexbox로 배치 */
+	justify-content: space-between; /* 양쪽 끝에 배치 */
+	padding: 5px 0; /* 줄마다 위아래 여백 */
+	width: 100%; /* 부모 요소에 맞춘 너비 */
 }
 
+/* 총 결제 금액 강조 */
 .total-price {
-	font-size: 18px;
-	font-weight: bold;
-	display: flex;
-	justify-content: space-between;
-	margin-top: 15px;
-	border-top: 1px solid #ddd;
-	padding-top: 10px;
-	width: 100%;
-	color: black;
+	font-size: 18px; /* 글자 크기 */
+	font-weight: bold; /* 글자 굵기 */
+	display: flex; /* 내용을 flexbox로 배치 */
+	justify-content: space-between; /* 양쪽 끝에 배치 */
+	margin-top: 15px; /* 위쪽 여백 */
+	border-top: 1px solid #ddd; /* 연한 회색 상단 테두리 */
+	padding-top: 10px; /* 상단 여백 */
+	width: 100%; /* 부모 요소에 맞춘 너비 */
+	color: black; /* 글자 색상 */
 }
 
 .total-price span {
@@ -168,18 +178,18 @@
 hr {
 	border: #f4f4f4 1px solid;
 }
-
 /* ***************************
    기타 스타일
 *************************** */
+/* 셀렉트 박스 */
 .order-selection, .coupon-selection {
-	width: 100%;
-	height: 40px;
-	border: #ddd solid 1px;
-	border-radius: 10px;
-	padding-left: 7px;
-	margin: 5px 0;
-	font-size: 13px;
+	width: 100%; /* 부모 요소에 맞춘 너비 */
+	height: 40px; /* 고정 높이 */
+	border: #ddd solid 1px; /* 연한 회색 테두리 */
+	border-radius: 10px; /* 모서리를 둥글게 */
+	padding-left: 7px; /* 왼쪽 여백 */
+	margin: 5px 0px; /* 위쪽 여백 */
+	font-size: 13px; /* 글자 크기 */
 }
 
 .coupon-selection-info {
@@ -188,6 +198,8 @@ hr {
 	border-radius: 10px;
 	border: #d4d4d4 1px solid;
 	width: 40%;
+	
+	
 }
 
 /* 결제 푸터 스타일 */
@@ -199,12 +211,13 @@ hr {
 	bottom: 0;
 	left: 0;
 	z-index: 1000;
-	height: 100px;
+	height: 100px; /* 푸터 높이 */
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	justify-content: center; /* 가로 중앙 정렬 */
+	align-items: center; /* 세로 중앙 정렬 */
 }
 
+/* 결제 버튼 스타일 */
 .payment-submit-btn {
 	width: 600px;
 	height: 50px;
@@ -214,24 +227,25 @@ hr {
 	border-radius: 10px;
 	border: none;
 	color: white;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+	cursor: pointer; /* 클릭 가능 마우스 커서 */
+	transition: background-color 0.3s ease; /* 호버 애니메이션 */
 }
 
-/* 모달창 스타일 */
+/* 모달창 */
 #address-modalOpenButton {
 	background-color: white;
-	border: #ddd 1px solid;
-	padding: 5px 8px;
-	border-radius: 15px;
-	color: gray;
+	border: #ddd 1px solid; /* 연한 회색 테두리 */
+	padding: 5px 8px; /* 내부 여백 */
+	border-radius: 15px; /* 모서리를 둥글게 */
+	color: gray; /* 글자 색상 */
 }
-
+/* 버튼 */
 #address-modalCloseButton, #coupon-modalCloseButton,
-#add-address-modalCloseButton {
+	#add-address-modalCloseButton {
 	cursor: pointer;
 }
 
+/* 모달 컨테이너 */
 #address-modalContainer, #coupon-modalContainer {
 	width: 100%;
 	height: 100%;
@@ -257,10 +271,11 @@ hr {
 }
 
 #address-modalContainer.hidden, #coupon-modalContainer.hidden,
-#add-address-modalContainer.hidden {
+	#add-address-modalContainer.hidden {
 	display: none;
 }
 
+/* 모달 내용 */
 #modalContent {
 	background-color: #ffffff;
 	width: 450px;
@@ -311,17 +326,19 @@ hr {
 	border-bottom: 1px solid #eee;
 	padding: 10px 0;
 	font-size: 13px;
+	padding-bottom: 10px;
 	width: 100%;
 	display: flex;
-	flex-direction: column;
+	flex-direction: column
 }
 
 .add-addressInfo {
 	padding: 10px 0;
 	font-size: 13px;
+	padding-bottom: 10px;
 	width: 100%;
 	display: flex;
-	flex-direction: column;
+	flex-direction: column
 }
 
 .addressInfo .name, .couponInfo .name, .coupon-selection-info .name {
@@ -331,7 +348,7 @@ hr {
 }
 
 .addressInfo div, .couponInfo div, .coupon-selection-info div {
-	padding: 3px 0;
+	padding: 3px 0px;
 }
 
 .couponInfoList {
@@ -345,7 +362,7 @@ hr {
 .couponInfo {
 	font-size: 13px;
 	padding: 10px;
-	margin: 5px 0;
+	margin: 5px 0px;
 	border-radius: 10px;
 	border: #d4d4d4 1px solid;
 	width: 100%;
@@ -356,7 +373,7 @@ hr {
 	color: lightgray;
 }
 
-/* 새 주소 추가 모달 */
+/* 새주소 추가하기 모달 */
 .sub-title {
 	font-weight: bold;
 	font-size: 15px;
@@ -402,7 +419,7 @@ input[type="text"]:focus {
 	height: 24px;
 	align-items: center;
 	font-weight: lighter;
-	cursor: pointer;
+	cursor: pointer
 }
 
 #searchAddress:hover {
@@ -430,3 +447,20 @@ input[type="text"]:focus {
 .addressInfo span {
 	margin-left: 11px;
 	font-size: 14px;
+}
+
+#saveBtn {
+	background: #ddd;
+	border-radius: 14px;
+	padding: 13px;
+	margin: 39px 148px;
+	width: 114px;
+	border: none;
+	color: #f4f4f4;
+	font-size: 15px;
+}
+
+#saveBtn:hover {
+	background: black;
+	color: white;
+}
