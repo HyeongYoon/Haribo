@@ -56,10 +56,10 @@
       <p class="mypage-sbn-menu">
         <c:choose>
           <c:when test="${param.page == 'rank'}">
-            <a href="<%=request.getContextPath()%>/jelly?page=rank" class="active">rank</a>
+            <a href="<%=request.getContextPath()%>/jelly?page=rank" class="active">판매자 등급</a>
           </c:when>
           <c:otherwise>
-            <a href="<%=request.getContextPath()%>/jelly?page=rank">rank</a>
+            <a href="<%=request.getContextPath()%>/jelly?page=rank">판매자 등급</a>
           </c:otherwise>
         </c:choose>
       </p>
