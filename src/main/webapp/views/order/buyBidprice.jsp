@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/views/home/subHeader.jsp" />
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +70,7 @@
 			</div>
 
 			<!-- 판매 버튼 -->
-			<a href="#" class="action-button">판매 입찰 계속</a>
+			<a href="#" class="action-button">구매 입찰 계속</a>
 		</div>
 	</div>
 	<jsp:include page="/views/home/footer.jsp" />
