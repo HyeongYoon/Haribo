@@ -26,6 +26,10 @@ public class SetDefaultAddress extends HttpServlet {
 		int userId = user.getUserId();
 
 		if (userId != 0) {
+				// 기본 배송지 해제 후
+				new AddressDAO().unsetDefaultAddress(userId);
+				
+				// 기본 배송지 설정 
 				new AddressDAO().setDefaultAddressOne(userId, postalCode);
 			}
 			
