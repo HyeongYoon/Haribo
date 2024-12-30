@@ -170,6 +170,32 @@ public class ProductSellerDAO {
 			}
 	    	return result; // insert 안됐으면 0
 	    }
+
+	// 판매자 등급 조회 
+	    public ProductSellerVO getSellerRank(int sellerId) {
+	    	ProductSellerVO vo = null;
+	    	sb.setLength(0);
+	    	sb.append("SELECT seller_id, sum(price) AS price_sum FROM PRODUCT_SELLER WHERE seller_id = ?");
+	    	
+	    	try {
+				pstmt = conn.prepareStatement(sb.toString());
+				pstmt.setInt(1, sellerId);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					vo = new ProductSellerVO(
+					rs.getInt("seller_id"),
+					rs.getInt("price_sum")
+					);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+	    	return vo;
+	    }
 	
 	// 자원 해제
 		private void close() {
