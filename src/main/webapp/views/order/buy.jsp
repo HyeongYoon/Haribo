@@ -247,7 +247,7 @@
 			원 결제하기
 		</button>
 	</div>
-	<jsp:include page="/views/home/footer.jsp" />
+ 	<jsp:include page="/views/home/footer.jsp" />
 	<script>
 $(()=> {
 	
@@ -273,9 +273,6 @@ $(()=> {
 		couponmodal.addClass("hidden");
 		document.body.style.overflow = "auto"; // 모달창 닫으면 다시 움직이게
 	});
-	
-	
-	
 	
 	 // 새주소 추가 모달 열기/닫기
 	const addAddressmodal = $("#add-address-modalContainer")
