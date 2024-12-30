@@ -124,6 +124,56 @@
 	</div>
 	<!-- 새주소 추가 모달 끝 -->
 
+
+<!-- 주소 수정 모달 -->
+	<div class="hidden" id="modify-address-modalContainer">
+		<div id="modalContent">
+			<div class="modalTitle">
+				<button class="modal-close" id="modify-address-modalCloseButton" >&times;</button>
+				<h3 class="modal-title">주소 수정</h3>
+			</div>
+			<div class="addressInfoList">
+				<div class="addressInfo">
+					<div class="input-box">
+						<div class="sub-title" id="name">이름</div>
+						<input type="text" name="" class="inputText" id="input-name"
+							placeholder="수령인의 이름" /><br />
+						<div id="name-alert"></div>
+
+					</div>
+					<div class="input-box">
+						<div class="sub-title">
+							우편번호
+							<button id="searchModifyAddress">우편번호 찾기</button>
+						</div>
+
+						<!-- 우편번호 입력 -->
+						<input type="text" name="" class="inputText" id="modify-postalCode"
+							placeholder="우편 번호를 검색하세요" readonly />
+					</div>
+
+					<div class="input-box">
+						<div class="sub-title" id="address">주소</div>
+						<input type="text" name="" class="inputText" id="modify-address"
+							placeholder="우편 번호 검색 후, 자동으로 입력됩니다" readonly />
+					</div>
+
+					<div class="input-box">
+						<div class="sub-title" id="detail-address">상세주소</div>
+						<input type="text" name="" class="inputText"
+							id="modify-detailAddress" placeholder="건물, 아파트, 동/호수 입력" />
+					</div>
+					<div class="checkDefaultAdd">
+						<button class="checkBtn">✓</button>
+						<span>기본배송지로 설정</span>
+					</div>
+					<button id="modifyBtn">저장</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 주소 수정 모달 끝 -->
+
 	<%@ include file="/views/home/footer.jsp"%>
 
 	<script>
@@ -150,7 +200,7 @@ $("#add-address-modalCloseButton").on("click", ()=>{
 
 }); 
 
-// alert 올바른 이름 적을 수 있게 메세지 -> 완료
+// alert 올바른 이름 적을 수 있게 메세지	
 let nameVal = '';
  $("#input-name").on("input", ()=>{
 	nameVal = $("#input-name").val();
@@ -161,21 +211,25 @@ let nameVal = '';
 
 
 
-// 주소 api불러오기 -> 완료
-let postalCode = '';
-let addressLine1 = '';
+// 주소 api불러오기	
+let postalCode = ''; // 전역변수
+let addressLine1 = ''; // 전역변수
 
 document.querySelector("#searchAddress").onclick = openKaKaoPostCode;
 
 function openKaKaoPostCode(){
 	new daum.Postcode({
 		oncomplete: function(data){
+			console.log(data);
 			document.querySelector("#input-postalCode").value = data.zonecode; // 우편 번호 가져오기
 			document.querySelector("#input-address").value = data.roadAddress; // 도로명 주소 가져오기
 			postalCode = document.querySelector("#input-postalCode").value;
 			addressLine1 = document.querySelector("#input-address").value;
+			console.log(document.querySelector("#input-postalCode"));
 		}
 	}).open();
+	
+	
 }
 //기본 배송지 체크 여부 확인 -> 완료
 let cnt = 0; // 기본 배송지 체크 여부를 위한 변수
@@ -209,8 +263,7 @@ $(".checkBtn").on("click", ()=>{
 	
 });
 
-// 모달창에서 저장버튼 누르면 ajax 써서 address db에 넣기 -> 화면에 반영  -> 완료
-// 이미 기본 주소가 있는 상태일경우 모달창에서 기본주소로 설정하기 체크 누르고 하면 자동으로 기본주소 -> 일반, 새로 입력한 기본 주소가 view 에 보임
+// 새 주소 저장
 $("#saveBtn").on("click", function() { // 클릭 이벤트에 대한 익명 함수 추가
     let addressLine2 = $("#input-detailAddress").val();
     
@@ -236,8 +289,7 @@ $("#saveBtn").on("click", function() { // 클릭 이벤트에 대한 익명 함�
 });
 
 
-// 삭제버튼 누르면 ajax 써서 address db에 삭제 -> 화면에서 삭제 -> 미완
-// db에서 삭제가 안됌.. 왜 ?
+// 주소 삭제
 $(".delete-btn").on("click", function(e) {
 	let postalCode = e.target.value;
 	console.log(postalCode);
@@ -250,8 +302,8 @@ $(".delete-btn").on("click", function(e) {
 		},
 		success : function(response){
 			console.log("주소 삭제 성공");
-/* 			window.location.href = "${pageContext.request.contextPath}/jelly?page=addressBook";
- */		},
+ 			window.location.href = "${pageContext.request.contextPath}/jelly?page=addressBook";
+ 		},
 		error: function(xhr, status, error) { // 함수 형태로 수정
 	        console.log("주소 저장 실패:", error);
 	        console.log("응답 상태:", status);
@@ -264,11 +316,11 @@ $(".delete-btn").on("click", function(e) {
 
 
 
-// 수정버튼 누르면 ajax 써서 address db에 수정 -> 화면에 수정된 내용 출력 -> 미완
-// 모달창 새거 띄워서 보내야해 .. 귀찮아서 일단 패스
+// 주소 수정 모달 여닫기
+const modifyAddressmodal = $("#modify-address-modalContainer")
 $(".modify-btn").on("click", () => {
 	// 모달창 열기
-	addAddressmodal.removeClass("hidden");
+	modifyAddressmodal.removeClass("hidden");
 	document.body.style.overflow = "hidden"; // 모달창 열었을 때 뒷 부분 움직이지 않음
 	// 모달창 열면 모든 입력값, css 초기화
 	$(".inputText").val("");
@@ -279,9 +331,60 @@ $(".modify-btn").on("click", () => {
 		border: "#ddd 1px solid"
 	});
 });
+$("#modify-address-modalCloseButton").on("click", ()=>{
+	modifyAddressmodal.addClass("hidden");
+	document.body.style.overflow = "auto"; // 모달창 닫으면 다시 움직이게
+}); 
 
 
-// 기본배송지 버튼 클릭하면 기본배송지로 db 업데이트 -> 기본 배송지로 이동 -> 완료 	
+
+//수정 주소 api불러오기	
+ let modifyPostalCode = ''; // 전역변수
+let modifyAddressLine1 = ''; // 전역변수
+
+document.querySelector("#searchModifyAddress").onclick = 
+function openKaKaoPostCode(){
+	new daum.Postcode({
+		oncomplete: function(data){
+			document.querySelector("#modify-postalCode").value = data.zonecode; // 우편 번호 가져오기
+			document.querySelector("#modify-address").value = data.roadAddress; // 도로명 주소 가져오기
+			modifyPostalCode = document.querySelector("#modify-postalCode").value;
+			modifyAddressLine1 = document.querySelector("#modify-address").value;
+		}
+	}).open();
+} 
+
+//주소 수정
+$("#modifyBtn").on("click",function(e){
+	let postalCode = $(".modify-btn").val();
+	console.log($(".modify-btn").val());
+    let modifyAddressLine2 = $("#modify-detailAddress").val();
+
+	
+	$.ajax({
+		url : "/haribo/updateAddress",
+		method: "get",
+		data:{
+			postalCode : postalCode, // 기존 주소의 우편번호
+			modifyPostalCode : modifyPostalCode,
+			modifyAddressLine1 : modifyAddressLine1,
+			modifyAddressLine2 : modifyAddressLine2,
+			isDefault : check
+		},
+		success : function(response){
+			console.log("기본 배송지 변경 성공");
+ 			window.location.href = "${pageContext.request.contextPath}/jelly?page=addressBook";
+ 		},
+		error: function(xhr, status, error) { // 함수 형태로 수정
+	        console.log("주소 저장 실패:", error);
+	        console.log("응답 상태:", status);
+	        console.log("서버 응답:", xhr.responseText);
+	    } 
+	})
+	
+})
+
+// 기본 배송지로 설정
 $("#checkDefault-btn").on("click", (e)=>{
 	let postalCode = e.target.value;
 	console.log(postalCode);
@@ -312,6 +415,5 @@ $("#checkDefault-btn").on("click", (e)=>{
 });
 
 </script>
-
 </body>
 </html>
