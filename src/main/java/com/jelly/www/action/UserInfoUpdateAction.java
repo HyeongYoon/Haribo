@@ -35,6 +35,10 @@ public class UserInfoUpdateAction implements Action {
             dao.updateInfoUserPw(userpassword, sessionuserid);
             session.setAttribute("userpassword", userpassword);
             success = true;
+         // 비밀번호 암호화
+         	String password = user.getPassword();
+         	String maskedPassword = "*".repeat(password.length());
+         	req.setAttribute("password", maskedPassword);
             req.setAttribute("successMessage", "비밀번호가 수정되었습니다.");
             System.out.println("비밀번호 수정 완료");
         }
@@ -45,7 +49,11 @@ public class UserInfoUpdateAction implements Action {
             dao.updateInfoUserPhoneNumber(userphonenum, sessionuserid);
             session.setAttribute("userphonenum", userphonenum);
             success = true;
-            req.setAttribute("successMessage", "휴대폰 번호가 수정되었습니다.");
+         // 전화번호 암호화
+         	String phonenumber = user.getPhoneNumber();
+         	String maskedPhoneNumber = phonenumber.substring(0, 3) + "-" + phonenumber.charAt(5) + "***" + "-" + "*" + phonenumber.substring(8, 11);
+            req.setAttribute("phonenumber", maskedPhoneNumber);
+         	req.setAttribute("successMessage", "휴대폰 번호가 수정되었습니다.");
             System.out.println("휴대폰 번호 수정 완료");
         }
 
