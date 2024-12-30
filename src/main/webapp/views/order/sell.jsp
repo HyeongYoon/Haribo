@@ -13,10 +13,10 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/sell.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<!-- 카카오 api -->
+<!-- 카카오 api -->
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
+
 </head>
 <body>
 	<div class="order-container">
@@ -100,12 +100,12 @@
 		</div>
 		<div class="order-info">
 			<div class="paymentSubinfo">
-				<span>계좌 간편결제</span> <a href="/views/mypage/구매내역.jsp"><button
+				<span>계좌 간편결제</span> <a href="${pageContext.request.contextPath}/jelly?page=userAccount"><button
 						class="addCard">+ 계좌 추가하기</button></a>
 				<div class="account-btn">${defaultAccount.bankName }&nbsp;
 					${defaultAccount.accountNumber }</div>
-				<span>페널티는 일시불만 지원합니다. 체결 후 결제 정보 변경은 불가하며 분할 납부 변경은 카드사 문의
-					바랍니다.단, 카드사별 정책에 따라 분할 납부 변경 시 수수료가 발생할 수 있습니다.</span>
+				<!-- <span>페널티는 일시불만 지원합니다. 체결 후 결제 정보 변경은 불가하며 분할 납부 변경은 카드사 문의
+					바랍니다.단, 카드사별 정책에 따라 분할 납부 변경 시 수수료가 발생할 수 있습니다.</span> -->
 			</div>
 		</div>
 	</div>
@@ -119,8 +119,9 @@
 			<div class="order-price">
 				<div class="price-detail">
 					<div>
-						<span>판매가</span> <span>><fmt:formatNumber
-								value="${price}" type="number" />원</span>
+						<span>판매가</span> <span><fmt:formatNumber value="${price}"
+								type="number" />원
+						</span>
 					</div>
 					<div>
 						<span>검수비</span> <span>무료</span>
@@ -141,40 +142,34 @@
 			</div>
 		</div>
 	</div>
-	<!-- 결제 푸터 -->
-	<div class="payment-footer">
-		<button class="payment-submit-btn">
-			<fmt:formatNumber value="${price + sellCharge }" type="number" />
-			원 판매하기
-		</button>
-		
-<!-- 주소 모달 -->
-	<div class="hidden" id="address-modalContainer">
-		<div id="modalContent">
-			<div class="modalTitle">
-				<button class="modal-close" id="address-modalCloseButton">&times;</button>
-				<h3 class="modal-title">주소록</h3>
+	
+		<!-- 주소 모달 -->
+		<div class="hidden" id="address-modalContainer">
+			<div id="modalContent">
+				<div class="modalTitle">
+					<button class="modal-close" id="address-modalCloseButton">&times;</button>
+					<h3 class="modal-title">주소록</h3>
+				</div>
+				<button class="addBtn">+ 새 주소 추가하기</button>
+				<c:if test="${not empty addressList }">
+					<div class="addressInfoList">
+						<c:forEach var="address" items="${addressList }">
+							<button class="addressInfo" value="${address.postalCode }">
+								<div class="name">${user.userName }</div>
+								<div class="address">[${address.postalCode }]
+									${address.addressLine1 } ${address.addressLine2 }</div>
+								<div class="phone">${user.phoneNumber }</div>
+							</button>
+						</c:forEach>
+						</div>
+				</c:if>
 			</div>
-			<button class="addBtn">+ 새 주소 추가하기</button>
-			<c:if test="${not empty addressList }">
-				<div class="addressInfoList">
-					<c:forEach var="address" items="${addressList }">
-						<button class="addressInfo" value="${address.postalCode }">
-							<div class="name">${user.userName }</div>
-							<div class="address">[${address.postalCode }]
-								${address.addressLine1 } ${address.addressLine2 }</div>
-							<div class="phone">${user.phoneNumber }</div>
-						</button>
-					</c:forEach>
-			</c:if>
 		</div>
-	</div>
-	</div>
 	<!-- 주소 모달 끝 -->
 
 	<!-- 새 주소 추가 모달 -->
 	<div class="hidden" id="add-address-modalContainer">
-		<div id="modalContent">
+		<div id="modalContent1">
 			<div class="modalTitle">
 				<button class="modal-close" id="add-address-modalCloseButton">&times;</button>
 				<h3 class="modal-title">주소 추가</h3>
@@ -220,10 +215,19 @@
 		</div>
 	</div>
 	<!-- 새주소 추가 모달 끝 -->
+	<!-- 결제 푸터 -->
+	<div class="payment-footer">
+		<button class="payment-submit-btn">
+			<fmt:formatNumber value="${price + sellCharge }" type="number" />
+			원 판매하기
+		</button>
+</div>
+	<jsp:include page="/views/home/footer.jsp" />
+	
 	<script>
 $(()=>{
+	const addressmodal= $("#address-modalContainer")
 	$(".modalOpen").on("click",function(){
-		$("#address-modalOpenButton").on("click", ()=>{
 			addressmodal.removeClass("hidden");	
 			document.body.style.overflow = "hidden"; // 모달창 열었을 때 뒷 부분 움직이지 않음
 		});
@@ -231,7 +235,6 @@ $(()=>{
 			addressmodal.addClass("hidden");
 			document.body.style.overflow = "auto";  // 모달창 닫으면 다시 움직이게
 		});
-	});
 	// 새주소 추가 모달 열기/닫기
 	const addAddressmodal = $("#add-address-modalContainer")
 	$(".addBtn").on("click", ()=>{
@@ -348,5 +351,4 @@ $(()=>{
 
 </script>
 </body>
-<jsp:include page="/views/home/footer.jsp" />
 </html>
